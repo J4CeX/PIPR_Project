@@ -1,5 +1,16 @@
+# from space import Space
+# from PIL import (
+#     Image,
+#     ImageDraw
+# )
+# from objects import (
+#     OrbitalObject,
+#     CentralObject
+# )
+
+
 def main():
-    print('hello world')
+    pass
 
 
 if __name__ == "__main__":
