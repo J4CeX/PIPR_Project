@@ -10,7 +10,10 @@
 
 
 def main():
-    pass
+    width = 40
+    print('*' * width)
+    print('SYMULACJA RUCHU W POLU GRAWITACYJNYM'.center(width))
+    print('*' * width)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from space import Space
+from simulation import Space
 from objects import OrbitalObject, CentralObject
 
 

@@ -7,6 +7,8 @@ from objects import (
     CentralObject
 )
 
+# to będzie symulacja
+
 
 class Space:
     def __init__(self, size: int, central_object: CentralObject,
@@ -17,13 +19,13 @@ class Space:
         self.spaceName = spaceName
 
         newSpace = Image.new('RGB', (size, size), (0, 0, 0))
-        newSpace.save(f'{spaceName}.png', 'PNG')
-        with Image.open(f'{spaceName}.png') as space:
+        newSpace.save(f'{spaceName}.jpg')
+        with Image.open(f'{spaceName}.jpg') as space:
             diameter = central_object.diameter()
             position = (size / 2, size / 2)
             draw = ImageDraw.Draw(space)
             draw.circle(position, diameter, 'white')
-            space.save(f'{spaceName}.png', 'PNG')
+            space.save(f'{spaceName}.jpg', quality=100)
             space.show()
 
     def size(self):
