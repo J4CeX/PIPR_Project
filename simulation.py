@@ -1,32 +1,18 @@
-from PIL import (
-    Image,
-    ImageDraw
-)
+import numpy as np
 from objects import (
     OrbitalObject,
     CentralObject
 )
+from space import Space
 
-# to będzie symulacja
 
-
-class Space:
-    def __init__(self, size: int, central_object: CentralObject,
-                 orbital_objects: OrbitalObject = [], spaceName='unknown'):
-        self._size = size
-        self._central_object = central_object
-        self._orbital_objects = orbital_objects
-        self.spaceName = spaceName
-
-        newSpace = Image.new('RGB', (size, size), (0, 0, 0))
-        newSpace.save(f'{spaceName}.jpg')
-        with Image.open(f'{spaceName}.jpg') as space:
-            diameter = central_object.diameter()
-            position = (size / 2, size / 2)
-            draw = ImageDraw.Draw(space)
-            draw.circle(position, diameter, 'white')
-            space.save(f'{spaceName}.jpg', quality=100)
-            space.show()
-
-    def size(self):
-        return self._size
+class Simulation():
+    def __init__(self, space: Space, central_object: CentralObject,
+                 orbital_objects: OrbitalObject = []):
+        self.space = space
+        self.central_object = central_object
+        self.orbital_objects = orbital_objects
+        self.matrix = np.array(
+            [[False for column in range(50)] for row in range(50)],
+            dtype=bool
+        )
