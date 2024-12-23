@@ -1,0 +1,36 @@
+Zrealizować program, który dla zadanej konfiguracji narysuje wynik symulacji ruchu w polu grawitacyjnym.
+
+1. Symulacja:
+    - przyjmuje obiekty oraz przestrzeń, w której zostanie przeprowadzona symulacja
+    - umieszcza obiekty na planszy
+    - oblicza przemieszczenie obiektów orbitalnych w czasie (krokach)
+        * tutorial na yt
+        * wzory fizyczne
+        * na ciało oddziałowuje siła przyciągania oraz prędkośc
+    - tworzy planszę dla i-tego kroku na podstawie kroku i-1
+    - zapamiętuje drogę przemieszczenia ciała w poszczególnych krokach (pamięta współrzędne x i y)
+    - uwzględnia zdarzenie kolizji obiektów orbitujących
+        * dwa obiekty na tych samych współrzędnych
+    - wyniki przekazuje do Menu
+2. Tworzenie grafiki:
+    - tworzy obraz przebiegu na podstawie danych z przeprowadzonej symulacji
+3. Zapisywanie wyników do pliku oraz ich odczyt:
+    - zapisuje przebieg symulacji w pliku (json)
+4. Menu:
+    - symulacja z podanej konfiguracji
+        * Średnica i masa obiektu centralnego
+        * N (konfigurowalne) punktowych obiektów obdarzonych pozycją, masą i wektorem prędkości
+        * "Skala świata" - rozmiar i rozdzielczość obrazu (liczba pikseli i liczba metrów na piksel) Można założyć, że wzajemne oddziaływanie grawitacyjne obiektów punktowych jest pomijalne
+    - symulacja z pliku zawierającego wyniki poprzedniej symulacji
+        * wybór pliku z Menu
+    - po przeprowadzeniu symulacji (krok 1) generuje raport oraz pyta i przedzodzi do kroków 2 i 3
+
+
+opis:
+Dla zadanej konfiguracji wykonywane jest k (wybrane przez użytkownika) kroków symulacji i w wyniku powstaje obraz, zawierająca: * ślady ruchu obiektów punktowych, * aktualną pozycję obiektów.
+
+Dodatkowo generowany powinien być raport zawierający informacje o ewentualnych kolizjach. Potencjalna kolizja powinna być wyznaczana jako wystąpienie dwóch obiektów na tym samym pikselu, w tej samej chwili czasowej.
+
+Końcowy stan symulacji powinien być zapisywany w takim formacie, by mógł być użyty jako stan początkowy kolejnej symulacji.
+
+Program powinien pozwalać na uruchomienie dowolnej liczby powtórzeń symulacji, generujących kolejne wersje obrazu.
