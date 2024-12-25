@@ -1,7 +1,3 @@
-# from PIL import (
-#     Image,
-#     ImageDraw
-# )
 from objects import (
     OrbitalObject,
     CentralObject
@@ -34,6 +30,8 @@ class Space:
             for object in self.orbital_objects:
                 object.x += object.velocity
                 self._draw.point(object.position())
+
+    def show(self):
         self._space_image.show()
 
     def open(self):
@@ -41,7 +39,7 @@ class Space:
 
     def save(self):
         path = f'simulations/{self.space_name()}.png'
-        self.space_image.save(path)
+        self._space_image.save(path)
 
     def size(self):
         return self._size

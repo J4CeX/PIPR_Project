@@ -1,7 +1,9 @@
 from menu import (
-    menu_print,
+    main_menu_print,
     new_data,
-    load_data
+    load_data,
+    clean,
+    wrong_option
 )
 import os
 
@@ -9,23 +11,42 @@ import os
 def main():
     while True:
         os.system('cls')
-        menu_print()
-        option = input('>> ')
-        if option == '1':
+        main_menu_print()
+        main_menu_option = input('>> ')
+        if main_menu_option == '1':
             space = new_data()
             print('Enter steps number: ')
             steps = int(input('>> '))
             space.simulate(steps)
-            # wyniki oraz możliwość ich zapisu do pliku
-        elif option == '2':
+            while True:
+                clean()
+                print('Options:')
+                print('1. Save results to file')
+                print('2. Show simulation graphics')
+                print('0. Return to main menu')
+                after_simulation_option = input('>> ')
+                clean()
+                communique = '(Press Enter to continue)'
+                if after_simulation_option == '1':
+                    space.save()
+                    print(f'Saving completed {communique}')
+                    input()
+                elif after_simulation_option == '2':
+                    space.show()
+                    print(f'Showing simulation graphics {communique}')
+                    input()
+                elif after_simulation_option == '0':
+                    break
+                else:
+                    wrong_option()
+        elif main_menu_option == '2':
             # wczytywanie wyników poprzedniej symulacji
             space = load_data()
-        elif option == '0':
+        elif main_menu_option == '0':
             print("Goodbye")
             return
         else:
-            print('There is no such option (Press Enter to continue)')
-            input()
+            wrong_option()
 
 
 if __name__ == "__main__":

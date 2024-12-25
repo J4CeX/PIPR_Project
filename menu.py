@@ -18,7 +18,7 @@ def clean():
     header()
 
 
-def menu_print():
+def main_menu_print():
     clean()
     print('Options:')
     print('1. New simulation')
@@ -64,3 +64,8 @@ def new_data():
 
 def load_data():
     pass
+
+
+def wrong_option():
+    print('There is no such option (Press Enter to continue)')
+    input()
