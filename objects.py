@@ -16,7 +16,7 @@ class CentralObject(Object):
 
 
 class OrbitalObject(Object):
-    def __init__(self, mass, position, velocity):
+    def __init__(self, mass, position: tuple, velocity):
         super().__init__(mass)
-        self.positon = position
+        self.position = position
         self.velocity = velocity

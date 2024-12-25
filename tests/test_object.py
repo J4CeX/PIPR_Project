@@ -8,7 +8,7 @@ def test_Central_Object_create():
 
 
 def test_Orbital_Object_create():
-    object = OrbitalObject(200, 'north-east', 20)
+    object = OrbitalObject(200, (2, 2), 20)
     assert object.mass() == 200
-    assert object.positon == 'north-east'
-    assert object.speedVector == 20
+    assert object.position == (2, 2)
+    assert object.velocity == 20

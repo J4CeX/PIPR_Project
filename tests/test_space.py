@@ -10,7 +10,17 @@ def test_Space_create():
     ]
     space = Space(500, central_object, orbital_objects)
     assert space.size() == 500
-    assert space._central_object.diameter() == 100
-    assert space._central_object.mass() == 2000
-    assert space._orbital_objects[0].mass() == 200
-    assert space._orbital_objects[1].mass() == 100
+    assert space.central_object.diameter() == 100
+    assert space.central_object.mass() == 2000
+    assert space.orbital_objects[0].mass() == 200
+    assert space.orbital_objects[1].mass() == 100
+
+
+def test_Space_print():
+    central_object = CentralObject(2000, 100)
+    orbital_objects = [
+        OrbitalObject(200, (2, 2), 2),
+        OrbitalObject(100, (3, 5), 2)
+    ]
+    space = Space(500, central_object, orbital_objects)
+    space.print()
