@@ -28,16 +28,21 @@ class Space:
         self.orbital_objects = orbital_objects
 
     def print(self):
-        file_format = 'png'
-        path = self.space_name()
+        path = f'{self.space_name()}.png'
         new_space = Image.new('RGB', (self.size(), self.size()), (0, 0, 0))
-        new_space.save(f'{path}.{file_format}', f'{file_format}')
-        with Image.open(f'{path}.{file_format}') as space_image:
+        new_space.save(path)
+        with Image.open(path) as space_image:
             draw = ImageDraw.Draw(space_image)
             print_central_object(self, draw)
             print_orbital_objects(self, draw)
-            space_image.save(f'{path}.{file_format}', f'{file_format}')
+            space_image.save(path)
             space_image.show()
+
+    def open(self):
+        pass
+
+    def save(self):
+        pass
 
     def size(self):
         return self._size
