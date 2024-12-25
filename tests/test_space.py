@@ -5,8 +5,8 @@ from objects import OrbitalObject, CentralObject
 def test_Space_create():
     central_object = CentralObject(2000, 100)
     orbital_objects = [
-        OrbitalObject(200, 1, 2),
-        OrbitalObject(100, 2, 2)
+        OrbitalObject(200, (2, 2), 2),
+        OrbitalObject(100, (10, 5), 2)
     ]
     space = Space(500, central_object, orbital_objects)
     assert space.size() == 500
@@ -22,7 +22,7 @@ def test_Space_simulate():
         OrbitalObject(200, (2, 2), 2),
         OrbitalObject(100, (10, 5), 2)
     ]
-    space = Space(500, central_object, orbital_objects, 'test')
+    space = Space(200, central_object, orbital_objects, 'test')
     space.simulate(1)
 
 

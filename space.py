@@ -21,17 +21,20 @@ class Space:
         position = (size / 2, size / 2)
         draw.circle(position, radius, fill='white')
         for object in orbital_objects:
-            draw.point(object.position)
+            draw.point(object.position())
         self._space_name = space_name
         self._size = size
         self.central_object = central_object
         self.orbital_objects = orbital_objects
-        self.space_image = space_image
+        self._space_image = space_image
+        self._draw = draw
 
     def simulate(self, steps: int):
-        # for step in range(0, steps):
-        #     for object in self
-        self.space_image.show()
+        for step in range(0, steps):
+            for object in self.orbital_objects:
+                object.x += object.velocity
+                self._draw.point(object.position())
+        self._space_image.show()
 
     def open(self):
         pass
