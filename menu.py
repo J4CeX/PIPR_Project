@@ -7,7 +7,7 @@ import os
 
 
 def header():
-    width = 40
+    width = 50
     print('*' * width)
     print('SIMULATION OF MOTION IN A GRAVITATIONAL FIELD'.center(width))
     print('*' * width)
@@ -16,14 +16,6 @@ def header():
 def clean():
     os.system('cls')
     header()
-
-
-def main_menu_print():
-    clean()
-    print('Options:')
-    print('1. New simulation')
-    print('2. Load simulation')
-    print('0. Exit')
 
 
 def new_data():

@@ -1,17 +1,18 @@
 from menu import (
-    main_menu_print,
     new_data,
     load_data,
     clean,
     wrong_option
 )
-import os
 
 
 def main():
     while True:
-        os.system('cls')
-        main_menu_print()
+        clean()
+        print('Options:')
+        print('1. New simulation')
+        print('2. Load simulation')
+        print('0. Exit')
         main_menu_option = input('>> ')
         if main_menu_option == '1':
             space = new_data()
@@ -43,6 +44,7 @@ def main():
             # wczytywanie wyników poprzedniej symulacji
             space = load_data()
         elif main_menu_option == '0':
+            clean()
             print("Goodbye")
             return
         else:

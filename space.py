@@ -40,12 +40,11 @@ class Space:
         pass
 
     def save(self):
-        # rozwiązać problem z istniejącym plikiem
         name = self.space_name()
         directory = f'{name}'
         parent_dir = 'simulations'
         path_directory = os.path.join(parent_dir, directory)
-        os.mkdir(path_directory)
+        os.mkdir(path_directory)  # rozwiązać problem z istniejącym plikiem
         path_image = f'simulations/{name}/{name}.png'
         self._space_image.save(path_image)
         path_results = f'simulations/{name}/{name}.json'
