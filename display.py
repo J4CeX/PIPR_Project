@@ -20,18 +20,6 @@ def wrong_option():
     input()
 
 
-def saving_completed_communique():
-    communique = '(Press Enter to continue)'
-    print(f'Saving completed {communique}')
-    input()
-
-
-def showing_graphic_communique():
-    communique = '(Press Enter to continue)'
-    print(f'Showing simulation graphic {communique}')
-    input()
-
-
 def simulation(space):
     clean()
     print('Enter steps number: ')
@@ -46,15 +34,17 @@ def simulation(space):
         print('0. Back to main menu')
         after_simulation_option = input('>> ')
         clean()
-
+        communique = '(Press Enter to continue)'
         if after_simulation_option == '1':
             pass
         elif after_simulation_option == '2':
             space.show_image()
-            showing_graphic_communique()
+            print(f'Showing simulation graphic {communique}')
+            input()
         elif after_simulation_option == '3':
             data.save_data(space)
-            saving_completed_communique()
+            print(f'Saving completed {communique}')
+            input()
         elif after_simulation_option == '0':
             break
         else:
