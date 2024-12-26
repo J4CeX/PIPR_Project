@@ -36,7 +36,7 @@ def simulation(space):
         clean()
         communique = '(Press Enter to continue)'
         if after_simulation_option == '1':
-            pass
+            show_results(space)
         elif after_simulation_option == '2':
             space.show_image()
             print(f'Showing simulation graphic {communique}')

@@ -15,6 +15,7 @@ class Space:
         draw = ImageDraw.Draw(space_image)
         radius = central_object.diameter() / 2
         position = (size / 2, size / 2)
+        central_object.set_position(position)
         draw.circle(position, radius, fill='white')
         for object in orbital_objects:
             draw.point(object.position())
