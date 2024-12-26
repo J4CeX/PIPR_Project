@@ -3,25 +3,9 @@ from objects import (
     OrbitalObject,
     CentralObject
 )
-import os
+from display import clean
 import json
-
-
-def header():
-    width = 50
-    print('*' * width)
-    print('SIMULATION OF MOTION IN A GRAVITATIONAL FIELD'.center(width))
-    print('*' * width)
-
-
-def clean():
-    os.system('cls')
-    header()
-
-
-def wrong_option():
-    print('There is no such option (Press Enter to continue)')
-    input()
+import os
 
 
 def new_data():
@@ -78,13 +62,40 @@ def load_data(file_handle):
                 tuple(object['position']),
                 object['velocity']
             ))
-        return Space(
-            size,
-            central_object,
-            orbital_objects,
-            space_name
-        )
+        return Space(size, central_object, orbital_objects, space_name)
     except KeyError as e:
         raise KeyError() from e
     except Exception as e:
         raise Exception() from e
+
+
+def save_data(space: Space):
+    name = space.space_name()
+    directory = f'{name}'
+    parent_dir = 'simulations'
+    path_directory = os.path.join(parent_dir, directory)
+    os.mkdir(path_directory)  # rozwiązać problem z istniejącym plikiem
+    path_image = f'simulations/{name}/{name}.png'
+    space._space_image.save(path_image)
+    path_results = f'simulations/{name}/{name}.json'
+    orbital_objects = []
+    for object in space.orbital_objects:
+        object_data = {
+            'mass': object.mass(),
+            'position': object.position(),
+            'velocity': object.velocity
+        }
+        orbital_objects.append(object_data)
+    with open(path_results, 'w') as file_handle:
+        size = space.size()
+        central_object = space.central_object
+        results = {
+            'space_name': name,
+            'size': size,
+            'central_object': {
+                'mass': central_object.mass(),
+                'diameter': central_object.diameter()
+            },
+            'orbital_objects': orbital_objects
+        }
+        json.dump(results, file_handle, indent=4)

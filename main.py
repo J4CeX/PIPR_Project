@@ -1,8 +1,12 @@
-from menu import (
+from io_module import (
     new_data,
     load_data,
+    save_data
+)
+from display import (
     clean,
-    wrong_option
+    wrong_option,
+    show_results
 )
 import os
 from PIL import Image
@@ -24,19 +28,22 @@ def main():
             while True:
                 clean()
                 print('Options:')
-                print('1. Save results to file')
+                print('1. Show simulation results')
                 print('2. Show simulation graphics')
+                print('3. Save results to file')
                 print('0. Back to main menu')
                 after_simulation_option = input('>> ')
                 clean()
                 communique = '(Press Enter to continue)'
                 if after_simulation_option == '1':
-                    space.save()
-                    print(f'Saving completed {communique}')
-                    input()
+                    pass
                 elif after_simulation_option == '2':
                     space.show()
                     print(f'Showing simulation graphics {communique}')
+                    input()
+                elif after_simulation_option == '3':
+                    save_data(space)
+                    print(f'Saving completed {communique}')
                     input()
                 elif after_simulation_option == '0':
                     break
@@ -66,8 +73,9 @@ def main():
                         elif load_option == '2':
                             path += f'/{files[load_file_option-1]}.json'
                             with open(path, 'r') as file_handle:
-                                # space =
-                                load_data(file_handle)
+                                space = load_data(file_handle)
+                                show_results(space)
+                                # opcje operacji na wczytanej przestrzeni
                         elif load_option == '3':
                             pass
                         elif load_option == '0':
