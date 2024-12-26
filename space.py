@@ -36,9 +36,6 @@ class Space:
     def show(self):
         self._space_image.show()
 
-    def open(self):
-        pass
-
     def save(self):
         name = self.space_name()
         directory = f'{name}'

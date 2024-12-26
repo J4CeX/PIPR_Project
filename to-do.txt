@@ -24,6 +24,8 @@ Zrealizować program, który dla zadanej konfiguracji narysuje wynik symulacji r
     - symulacja z pliku zawierającego wyniki poprzedniej symulacji
         * wybór pliku z Menu
     - po przeprowadzeniu symulacji (krok 1) generuje raport oraz pyta i przedzodzi do kroków 2 i 3
+5. Dodatkowe:
+    - gdy nie istnieje folder 'symuulacje' należy go utworzyć
 
 
 opis:

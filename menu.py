@@ -4,6 +4,7 @@ from objects import (
     CentralObject
 )
 import os
+import json
 
 
 def header():
@@ -16,6 +17,11 @@ def header():
 def clean():
     os.system('cls')
     header()
+
+
+def wrong_option():
+    print('There is no such option (Press Enter to continue)')
+    input()
 
 
 def new_data():
@@ -54,10 +60,31 @@ def new_data():
     return Space(size, central_object, orbital_objects, field_name)
 
 
-def load_data():
-    pass
-
-
-def wrong_option():
-    print('There is no such option (Press Enter to continue)')
-    input()
+def load_data(file_handle):
+    data = json.load(file_handle)
+    try:
+        space_name = data['space_name']
+        size = data['size']
+        loaded_central_object = data['central_object']
+        loaded_orbital_objects = data['orbital_objects']
+        central_object = CentralObject(
+            loaded_central_object['mass'],
+            loaded_central_object['diameter']
+        )
+        orbital_objects = []
+        for object in loaded_orbital_objects:
+            orbital_objects.append(OrbitalObject(
+                object['mass'],
+                tuple(object['position']),
+                object['velocity']
+            ))
+        return Space(
+            size,
+            central_object,
+            orbital_objects,
+            space_name
+        )
+    except KeyError as e:
+        raise KeyError() from e
+    except Exception as e:
+        raise Exception() from e
