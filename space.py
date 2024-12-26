@@ -31,7 +31,7 @@ class Space:
                 object.x += object.velocity
                 self._draw.point(object.position())
 
-    def show(self):
+    def show_image(self):
         self._space_image.show()
 
     def size(self):

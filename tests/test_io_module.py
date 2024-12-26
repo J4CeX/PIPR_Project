@@ -1,4 +1,4 @@
-from io_module import (
+from data import (
     load_data,
     save_data
 )
@@ -33,4 +33,3 @@ def test_save_data():
     ]
     space = Space(500, central_object, orbital_objects, 'test1')
     save_data(space)
-

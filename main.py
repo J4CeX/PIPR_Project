@@ -1,12 +1,12 @@
-from io_module import (
+from data import (
     new_data,
     load_data,
-    save_data
 )
 from display import (
     clean,
     wrong_option,
-    show_results
+    show_results,
+    simulation
 )
 import os
 from PIL import Image
@@ -22,33 +22,7 @@ def main():
         main_menu_option = input('>> ')
         if main_menu_option == '1':
             space = new_data()
-            print('Enter steps number: ')
-            steps = int(input('>> '))
-            space.simulate(steps)
-            while True:
-                clean()
-                print('Options:')
-                print('1. Show simulation results')
-                print('2. Show simulation graphics')
-                print('3. Save results to file')
-                print('0. Back to main menu')
-                after_simulation_option = input('>> ')
-                clean()
-                communique = '(Press Enter to continue)'
-                if after_simulation_option == '1':
-                    pass
-                elif after_simulation_option == '2':
-                    space.show()
-                    print(f'Showing simulation graphics {communique}')
-                    input()
-                elif after_simulation_option == '3':
-                    save_data(space)
-                    print(f'Saving completed {communique}')
-                    input()
-                elif after_simulation_option == '0':
-                    break
-                else:
-                    wrong_option()
+            simulation(space)
         elif main_menu_option == '2':
             files = os.listdir('simulations')
             while True:
@@ -56,32 +30,32 @@ def main():
                 for index in range(0, len(files)):
                     print(f'{index+1}. {files[index]}')
                 print('0. Back to main menu')
-                load_file_option = int(input('>> '))  # tylko jeden znak
+                load_file_option = int(input('>> '))
                 if load_file_option > 0 and load_file_option <= len(files):
                     path = f'simulations/{files[load_file_option-1]}'
-                    while True:
-                        clean()
-                        print('1. Show graph')
-                        print('2. Show results')
-                        print('3. Start new simulation from the last step')
-                        print('0. Cancel')
-                        load_option = input('>> ')
-                        if load_option == '1':
-                            path += f'/{files[load_file_option-1]}.png'
-                            image = Image.open(path)
-                            image.show()
-                        elif load_option == '2':
-                            path += f'/{files[load_file_option-1]}.json'
-                            with open(path, 'r') as file_handle:
-                                space = load_data(file_handle)
+                    results_file = f'/{files[load_file_option-1]}.json'
+                    with open(path + results_file, 'r') as file_handle:
+                        space = load_data(file_handle)
+                        while True:
+                            clean()
+                            print('1. Show simulation results')
+                            print('2. Show simulation graphics')
+                            print('3. Start new simulation from the last step')
+                            print('0. Cancel')
+                            load_option = input('>> ')
+                            if load_option == '1':
                                 show_results(space)
-                                # opcje operacji na wczytanej przestrzeni
-                        elif load_option == '3':
-                            pass
-                        elif load_option == '0':
-                            break
-                        else:
-                            wrong_option()
+                            elif load_option == '2':
+                                img_file = f'/{files[load_file_option-1]}.png'
+                                image = Image.open(path + img_file)
+                                image.show()
+                            elif load_option == '3':
+                                simulation(space)
+                                # możliwość edytowania prędkości oraz masy
+                            elif load_option == '0':
+                                break
+                            else:
+                                wrong_option()
                 elif load_file_option == 0:
                     break
                 else:
