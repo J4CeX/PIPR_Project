@@ -6,6 +6,8 @@ from PIL import (
     Image,
     ImageDraw
 )
+import os
+import json
 
 
 class Space:
@@ -38,8 +40,36 @@ class Space:
         pass
 
     def save(self):
-        path = f'simulations/{self.space_name()}.png'
-        self._space_image.save(path)
+        # rozwiązać problem z istniejącym plikiem
+        name = self.space_name()
+        directory = f'{name}'
+        parent_dir = 'simulations'
+        path_directory = os.path.join(parent_dir, directory)
+        os.mkdir(path_directory)
+        path_image = f'simulations/{name}/{name}.png'
+        self._space_image.save(path_image)
+        path_results = f'simulations/{name}/{name}.json'
+        orbital_objects = []
+        for object in self.orbital_objects:
+            object_data = {
+                'mass': object.mass(),
+                'position': object.position(),
+                'velocity': object.velocity
+            }
+            orbital_objects.append(object_data)
+        with open(path_results, 'w') as file_handle:
+            size = self.size()
+            central_object = self.central_object
+            results = {
+                'space_name': name,
+                'size': size,
+                'central_object': {
+                    'mass': central_object.mass(),
+                    'diameter': central_object.diameter()
+                },
+                'orbital_objects': orbital_objects
+            }
+            json.dump(results, file_handle, indent=4)
 
     def size(self):
         return self._size
