@@ -33,6 +33,7 @@ def showing_graphic_communique():
 
 
 def simulation(space):
+    clean()
     print('Enter steps number: ')
     steps = int(input('>> '))
     space.simulate(steps)
@@ -58,6 +59,22 @@ def simulation(space):
             break
         else:
             wrong_option()
+
+
+def edit(space: Space):
+    clean()
+    print('Would you like to edit any values?')
+    print('1. Yes')
+    print('2. No')
+    option = input('>> ')
+    if option == '1':
+        clean()
+        print(space.info())
+        input()
+    elif option == '2':
+        return
+    else:
+        wrong_option()
 
 
 def show_results(space: Space):

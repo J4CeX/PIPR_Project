@@ -6,7 +6,8 @@ from display import (
     clean,
     wrong_option,
     show_results,
-    simulation
+    simulation,
+    edit
 )
 import os
 from PIL import Image
@@ -30,7 +31,7 @@ def main():
                 for index in range(0, len(files)):
                     print(f'{index+1}. {files[index]}')
                 print('0. Back to main menu')
-                load_file_option = int(input('>> '))
+                load_file_option = int(input('>> '))  # problem
                 if load_file_option > 0 and load_file_option <= len(files):
                     path = f'simulations/{files[load_file_option-1]}'
                     results_file = f'/{files[load_file_option-1]}.json'
@@ -50,8 +51,8 @@ def main():
                                 image = Image.open(path + img_file)
                                 image.show()
                             elif load_option == '3':
+                                edit(space)
                                 simulation(space)
-                                # możliwość edytowania prędkości oraz masy
                             elif load_option == '0':
                                 break
                             else:
