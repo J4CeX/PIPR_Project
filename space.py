@@ -6,7 +6,7 @@ from PIL import (
     Image,
     ImageDraw
 )
-import numpy as np
+from math import sqrt
 
 
 class Space:
@@ -36,7 +36,7 @@ class Space:
             for object in self.orbital_objects:
                 x, y = object.position()
 
-                r = np.sqrt(x**2 + y**2)
+                r = sqrt(x**2 + y**2)
                 a = -G * M / r**2
                 ax = a * (x / r)
                 ay = a * (y / r)

@@ -26,9 +26,10 @@ Zrealizować program, który dla zadanej konfiguracji narysuje wynik symulacji r
     - po przeprowadzeniu symulacji (krok 1) generuje raport oraz pyta i przedzodzi do kroków 2 i 3
 5. Do rozwiązania:
     - gdy nie istnieje folder 'symulacje' należy go utworzyć
-    - gdy pobierany jest zapis symulacji i chcemy ją kontynuować to powinno wyświetlić się zapytanie czy użytkownik chce edytować dane (prędkość, masę)
     - wprowadzanie dane ktore powinny byc integerem muszą obsługiwać wyjątki gdy wprowadzony zostanie string
-    - symulacja: przemieszczenie(wektor?), zmiana prędkośći(wektor)
+    - nadpisywanie wyników
+    - kolizja obiektów
+    - zapisywanie raportu
 
 
 opis:

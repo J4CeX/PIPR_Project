@@ -3,6 +3,9 @@ from space import Space
 import data
 
 
+communique = '(Press Enter to continue)'
+
+
 def header():
     width = 50
     print('*' * width)
@@ -31,10 +34,9 @@ def simulation(space):
         print('1. Show simulation results')
         print('2. Show simulation graphics')
         print('3. Save results to file')
-        print('0. Back to main menu')
+        print('0. Cancel')
         after_simulation_option = input('>> ')
         clean()
-        communique = '(Press Enter to continue)'
         if after_simulation_option == '1':
             show_results(space)
         elif after_simulation_option == '2':
@@ -68,4 +70,7 @@ def edit(space: Space):
 
 
 def show_results(space: Space):
-    pass
+    clean()
+    print(space.info())
+    print(f'Showing simulation results {communique}')
+    input()
