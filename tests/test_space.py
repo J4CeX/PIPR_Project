@@ -27,11 +27,20 @@ def test_Space_simulate():
     space.simulate(1)
 
 
-def test_Space_simulate_Earth_Moon():
-    central_object = CentralObject(5.98e24, 12)
+def test_Space_simulate_Earth_Sun():
+    scale = 3e-9
+    sun_mass = 1.989e30
+    sun_diameter = 109
+    earth_mass = 5.972e24
+    average_distance = 1.496e11
+    velocityY = 29780
+    central_object = CentralObject(sun_mass, sun_diameter)
     orbital_objects = [
-        OrbitalObject(1, (0, 100), (0.3, 0)),
+        OrbitalObject(
+            earth_mass,
+            (average_distance, 0),
+            (0, velocityY))
     ]
-    space = Space(260, 200, central_object, orbital_objects, 'test_test')
-    space.simulate(1000)
+    space = Space(1000, scale, central_object, orbital_objects, 'test_test')
+    space.simulate(365)
     space.show_image()

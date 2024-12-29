@@ -103,4 +103,4 @@ def save_data(space: Space):
             },
             'orbital_objects': orbital_objects
         }
-        json.dump(results, file_handle, indent=4)
+        json.dump(results, file_handle, indent=5)
