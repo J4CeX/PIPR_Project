@@ -13,9 +13,9 @@ def new_data():
     print('Field name:')
     field_name = str(input('>> '))
     print('Field size:')
-    size = float(input('>> '))
+    size = int(input('>> '))
     print('Field scale (px:meters): ')
-    scale = int(input('>> 1px:'))
+    scale = float(input('>> 1px:'))
     clean()
     print('Central object')
     print('Diameter:')
@@ -34,8 +34,8 @@ def new_data():
         print('Mass:')
         OO_mass = float(input('>> '))
         print('Position:')
-        OO_x = int(input('(x) >> '))
-        OO_y = int(input('(y) >> '))
+        OO_x = float(input('(x) >> '))
+        OO_y = float(input('(y) >> '))
         OO_position = (OO_x, OO_y)
         print('Velocity:')
         OO_velocity = float(input('>> '))
@@ -63,7 +63,7 @@ def load_data(file_handle):
             orbital_objects.append(OrbitalObject(
                 object['mass'],
                 tuple(object['position']),
-                object['velocity']
+                tuple(object['velocity'])
             ))
         return Space(size, scale, central_object, orbital_objects, space_name)
     except KeyError as e:
@@ -86,7 +86,7 @@ def save_data(space: Space):
         object_data = {
             'mass': object.mass(),
             'position': object.position(),
-            'velocity': object.velocity
+            'velocity': object.velocity()
         }
         orbital_objects.append(object_data)
     with open(path_results, 'w') as file_handle:

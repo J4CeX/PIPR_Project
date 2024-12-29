@@ -29,3 +29,6 @@ class OrbitalObject(Object):
         super().__init__(mass, positionXY)
         self.vx = velocityXY[0]
         self.vy = velocityXY[1]
+
+    def velocity(self):
+        return (self.vx, self.vy)

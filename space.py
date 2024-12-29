@@ -78,6 +78,6 @@ class Space:
         for object in self.orbital_objects:
             info += f'{index}.\tMass: {object.mass()}\n'
             info += f'\tPosition(x, y): {object.position()}\n'
-            info += f'\tVelocity: {object.velocity}\n'
+            info += f'\tVelocity(x, y): {object.velocity()}\n'
             index += 1
         return info
