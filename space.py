@@ -12,7 +12,7 @@ from math import (
 
 
 class Space:
-    def __init__(self, size: int, central_object: CentralObject,
+    def __init__(self, size: int, scale: int, central_object: CentralObject,
                  orbital_objects: OrbitalObject = [], space_name='unknown'):
         space_image = Image.new('RGB', (size, size), (0, 0, 0))
         draw = ImageDraw.Draw(space_image)
@@ -24,6 +24,7 @@ class Space:
             draw.point(position)
         self._space_name = space_name
         self._size = size
+        self._scale = scale
         self.central_object = central_object
         self.orbital_objects = orbital_objects
         self._space_image = space_image
@@ -37,12 +38,13 @@ class Space:
             for object in self.orbital_objects:
                 x2, y2 = object.position()
                 R = sqrt(pow(x2 - x1, 2)+pow(y2 - y1, 2))
-                next_vx = object.velocity[0] - (G * M) / pow(R, 3)
-                next_vy = object.velocity[1] - (G * M) / pow(R, 3)
+                next_vx = object.velocity[0] - ((G * M) / pow(R, 3))
+                next_vy = object.velocity[1] - ((G * M) / pow(R, 3))
                 next_x = x2 + object.velocity[0]
                 next_y = y2 + object.velocity[1]
                 next_position = (next_x, next_y)
-                object.velocity = (next_vx, next_vy)
+                object.velocity[0] = next_vx
+                object.velocity[1] = next_vy
                 object.set_position(next_position)
 
                 x_draw, y_draw = object.position()
@@ -57,6 +59,9 @@ class Space:
 
     def size(self):
         return self._size
+
+    def scale(self):
+        return self._scale
 
     def space_name(self):
         return self._space_name

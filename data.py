@@ -14,6 +14,8 @@ def new_data():
     field_name = str(input('>> '))
     print('Field size:')
     size = float(input('>> '))
+    print('Field scale (px:meters): ')
+    scale = int(input('>> 1px:'))
     clean()
     print('Central object')
     print('Diameter:')
@@ -41,7 +43,7 @@ def new_data():
         orbital_objects.append(orbital_object)
     clean()
     central_object = CentralObject(CO_mass, CO_diameter)
-    return Space(size, central_object, orbital_objects, field_name)
+    return Space(size, scale, central_object, orbital_objects, field_name)
 
 
 def load_data(file_handle):
@@ -49,6 +51,7 @@ def load_data(file_handle):
     try:
         space_name = data['space_name']
         size = data['size']
+        scale = data['scale']
         loaded_central_object = data['central_object']
         loaded_orbital_objects = data['orbital_objects']
         central_object = CentralObject(
@@ -62,7 +65,7 @@ def load_data(file_handle):
                 tuple(object['position']),
                 object['velocity']
             ))
-        return Space(size, central_object, orbital_objects, space_name)
+        return Space(size, scale, central_object, orbital_objects, space_name)
     except KeyError as e:
         raise KeyError() from e
     except Exception as e:
@@ -88,10 +91,12 @@ def save_data(space: Space):
         orbital_objects.append(object_data)
     with open(path_results, 'w') as file_handle:
         size = space.size()
+        scale = space.scale()
         central_object = space.central_object
         results = {
             'space_name': name,
             'size': size,
+            'scale': scale,
             'central_object': {
                 'mass': central_object.mass(),
                 'diameter': central_object.diameter()
