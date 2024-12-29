@@ -28,6 +28,7 @@ Zrealizować program, który dla zadanej konfiguracji narysuje wynik symulacji r
     - gdy nie istnieje folder 'symulacje' należy go utworzyć
     - gdy pobierany jest zapis symulacji i chcemy ją kontynuować to powinno wyświetlić się zapytanie czy użytkownik chce edytować dane (prędkość, masę)
     - wprowadzanie dane ktore powinny byc integerem muszą obsługiwać wyjątki gdy wprowadzony zostanie string
+    - symulacja: przemieszczenie(wektor?), zmiana prędkośći(wektor)
 
 
 opis:

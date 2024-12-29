@@ -28,8 +28,8 @@ def test_load_data():
 def test_save_data():
     central_object = CentralObject(2000, 100)
     orbital_objects = [
-        OrbitalObject(200, (2, 2), 2),
-        OrbitalObject(100, (10, 5), 2)
+        OrbitalObject(200, (2, 2), (20, 0)),
+        OrbitalObject(100, (10, 5), (20, 0))
     ]
     space = Space(500, central_object, orbital_objects, 'test1')
     save_data(space)

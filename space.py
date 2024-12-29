@@ -6,6 +6,9 @@ from PIL import (
     Image,
     ImageDraw
 )
+from math import (
+    sqrt
+)
 
 
 class Space:
@@ -15,10 +18,10 @@ class Space:
         draw = ImageDraw.Draw(space_image)
         radius = central_object.diameter() / 2
         position = (size / 2, size / 2)
-        central_object.set_position(position)
+        central_object.set_position((0, 0))
         draw.circle(position, radius, fill='white')
         for object in orbital_objects:
-            draw.point(object.position())
+            draw.point(position)
         self._space_name = space_name
         self._size = size
         self.central_object = central_object
@@ -27,10 +30,27 @@ class Space:
         self._draw = draw
 
     def simulate(self, steps: int):
+        G = 1.2e-22
+        M = self.central_object.mass()
+        x1, y1 = self.central_object.position()
         for step in range(0, steps):
             for object in self.orbital_objects:
-                object.x += object.velocity
-                self._draw.point(object.position())
+                x2, y2 = object.position()
+                R = sqrt(pow(x2 - x1, 2)+pow(y2 - y1, 2))
+                next_vx = object.velocity[0] - (G * M) / pow(R, 3)
+                next_vy = object.velocity[1] - (G * M) / pow(R, 3)
+                next_x = x2 + object.velocity[0]
+                next_y = y2 + object.velocity[1]
+                next_position = (next_x, next_y)
+                object.velocity = (next_vx, next_vy)
+                object.set_position(next_position)
+
+                x_draw, y_draw = object.position()
+                x_draw += self.size()/2
+                y_draw += self.size()/2
+                self._draw.point((x_draw, y_draw))
+        #         print((x2, y2), ' ', (x_draw, y_draw))
+        # input()
 
     def show_image(self):
         self._space_image.show()

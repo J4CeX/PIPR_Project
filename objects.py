@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Object:
     def __init__(self, mass, positionXY: tuple):
         self._mass = mass
@@ -25,6 +28,9 @@ class CentralObject(Object):
 
 
 class OrbitalObject(Object):
-    def __init__(self, mass, positionXY, velocity):
+    def __init__(self, mass, positionXY, velocityXY: tuple):
         super().__init__(mass, positionXY)
-        self.velocity = velocity
+        self.vx = velocityXY[0]
+        self.vy = velocityXY[1]
+        self.velocity = np.array(velocityXY)
+        self.gravity = np.array((0, 0))
