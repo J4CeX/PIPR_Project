@@ -29,7 +29,7 @@ def wrong_option():
 def simulation(space):
     clean()
     print('Enter steps number: ')
-    steps = int(input('>> '))
+    steps = data.int_input()
     space.simulate(steps)
     while True:
         clean()
@@ -63,7 +63,7 @@ def load_simulation():
         for index in range(0, len(files)):
             print(f'{index+1}. {files[index]}')
         print('0. Back to main menu')
-        load_file_option = int(input('>> '))  # problem
+        load_file_option = data.int_input()  # problem
         if load_file_option > 0 and load_file_option <= len(files):
             path = f'simulations/{files[load_file_option-1]}'
             results_file = f'/{files[load_file_option-1]}.json'

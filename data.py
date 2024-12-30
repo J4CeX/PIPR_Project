@@ -13,22 +13,41 @@ import json
 import os
 
 
+def int_input(msg=''):
+    while True:
+        number = input(f'{msg}>> ')
+        if number.isdigit():
+            number = int(number)
+            return number
+
+
+def float_input(msg=''):
+    while True:
+        number = input(f'{msg}>> ')
+        try:
+            number = float(number)
+        except ValueError:
+            continue
+        else:
+            return number
+
+
 def field_data():
     print('Field name:')
     field_name = str(input('>> '))
     print('Field size:')
-    size = int(input('>> '))
+    size = int_input()
     print('Field scale (px:meters): ')
-    scale = 1 / float(input('>> 1px:'))
+    scale = 1 / float_input('1px ')
     return field_name, size, scale
 
 
 def central_object_data():
     print('Central object')
     print('Diameter (meters):')
-    CO_diameter = float(input('>> '))
+    CO_diameter = float_input()
     print('Mass (kilograms):')
-    CO_mass = float(input('>> '))
+    CO_mass = float_input()
     return CentralObject(CO_mass, CO_diameter)
 
 
@@ -36,7 +55,7 @@ def orbital_objects_data():
     orbital_objects = []
     print('Orbital objects')
     print('Number of objects:')
-    quantity = int(input('>> '))
+    quantity = int_input()
     message = 'Central point of the central object is placed on x=0, y=0'
     print('*' * WIDTH)
     print('Objects are placed on a Cartesian plane'.center(WIDTH))
@@ -47,14 +66,14 @@ def orbital_objects_data():
         print()
         print(f'Object: {index+1}.')
         print('Mass (kilograms):')
-        OO_mass = float(input('>> '))
+        OO_mass = float_input()
         print('Position:')
-        OO_x = float(input('(x) >> '))
-        OO_y = float(input('(y) >> '))
+        OO_x = float_input('(x) ')
+        OO_y = float_input('(y) ')
         OO_position = (OO_x, OO_y)
         print('Velocity:')
-        OO_velocity_x = float(input('(x) >> '))
-        OO_velocity_y = float(input('(y) >> '))
+        OO_velocity_x = float_input('(x) ')
+        OO_velocity_y = float_input('(y) ')
         OO_velocity = (OO_velocity_x, OO_velocity_y)
         orbital_object = OrbitalObject(OO_mass, OO_position, OO_velocity)
         orbital_objects.append(orbital_object)
