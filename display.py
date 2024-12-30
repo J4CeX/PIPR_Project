@@ -67,6 +67,7 @@ def load_simulation():
             results_file = f'/{files[load_file_option-1]}.json'
             with open(path + results_file, 'r') as file_handle:
                 space = data.load_data(file_handle)
+                input()
             while True:
                 clean()
                 print('1. Show simulation results')
@@ -100,9 +101,7 @@ def edit(space: Space):
     print('2. No')
     option = input('>> ')
     if option == '1':
-        clean()
-        print(space.info())
-        input()
+        data.edit_data(space)
     elif option == '2':
         return
     else:

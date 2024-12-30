@@ -17,16 +17,16 @@ def test_Space_create():
     assert space.orbital_objects[1].mass() == 100
 
 
-def test_Space_set_space_name():
+def test_Space_set_name():
     central_object = CentralObject(2000, 100)
     orbital_objects = [
         OrbitalObject(200, (2, 2), (20, 0)),
         OrbitalObject(100, (10, 5), (20, 0))
     ]
     space = Space(500, 200, central_object, orbital_objects)
-    assert space.space_name() == 'unknown'
-    space.set_space_name('change')
-    assert space.space_name() == 'change'
+    assert space.name() == 'unknown'
+    space.set_name('change')
+    assert space.name() == 'change'
 
 
 def test_Space_simulate():

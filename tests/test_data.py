@@ -10,12 +10,12 @@ from space import Space
 
 
 def test_load_data():
-    path = 'simulations/test/test.json'
+    path = 'simulations/test1/test1.json'
     with open(path, 'r') as file_handle:
         space = load_data(file_handle)
         assert space.size() == 200
         assert space.scale() == 200
-        assert space.space_name() == 'test'
+        assert space.name() == 'test1'
         assert space.central_object.mass() == 2000
         assert space.central_object.diameter() == 100
         assert space.orbital_objects[0].mass() == 200

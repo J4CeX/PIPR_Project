@@ -11,19 +11,19 @@ from math import sqrt
 
 class Space:
     def __init__(self, size: int, scale: int, central_object: CentralObject,
-                 orbital_objects: OrbitalObject = [], space_name='unknown'):
+                 orbital_objects: OrbitalObject = [], name='unknown'):
         space_image = Image.new('RGB', (size, size), (0, 0, 0))
         draw = ImageDraw.Draw(space_image)
         radius = (central_object.diameter() / 2) * scale
         position = (size / 2, size / 2)
         central_object.set_position(position)
         draw.circle(position, radius, fill='white')
-        self._space_name = space_name
+        self._name = name
         self._size = size
         self._scale = scale
         self.central_object = central_object
         self.orbital_objects = orbital_objects
-        self._space_image = space_image
+        self._image = space_image
         self._draw = draw
 
     def simulate(self, steps: int):
@@ -50,11 +50,9 @@ class Space:
                 x_pixel = X + x * SCALE
                 y_pixel = Y + y * SCALE
                 self._draw.point((x_pixel, y_pixel))
-        #         print(x_pixel, ' ', y_pixel)
-        # input()
 
     def show_image(self):
-        self._space_image.show()
+        self._image.show()
 
     def size(self):
         return self._size
@@ -62,16 +60,23 @@ class Space:
     def scale(self):
         return self._scale
 
-    def space_name(self):
-        return self._space_name
+    def name(self):
+        return self._name
 
-    def set_space_name(self, new_name):
-        self._space_name = new_name
+    def set_name(self, new_name):
+        self._name = new_name
+
+    def set_size(self, new_size):
+        self._size = new_size
+
+    def set_scale(self, new_scale):
+        self._scale = new_scale
 
     def info(self):
         info = ''
-        info += f'Space name: {self._space_name}\n'
-        info += f'Space Size: {self._size}\n'
+        info += f'Space name: {self._name}\n'
+        info += f'Space size: {self._size}\n'
+        info += f'Space scale: {self._scale}\n'
         info += 'Central Object:\n'
         info += f'\tMass: {self.central_object.mass()}\n'
         info += f'\tDiameter: {self.central_object.diameter()}\n'

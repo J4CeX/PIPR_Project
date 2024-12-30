@@ -6,28 +6,34 @@ from objects import (
 from display import (
     clean,
     wrong_option,
-    WIDTH
+    WIDTH,
+    communique
 )
 import json
 import os
 
 
-def new_data():
-    clean()
+def field_data():
     print('Field name:')
     field_name = str(input('>> '))
     print('Field size:')
     size = int(input('>> '))
     print('Field scale (px:meters): ')
     scale = 1 / float(input('>> 1px:'))
-    clean()
+    return field_name, size, scale
+
+
+def central_object_data():
     print('Central object')
     print('Diameter (meters):')
     CO_diameter = float(input('>> '))
     print('Mass (kilograms):')
     CO_mass = float(input('>> '))
+    return CentralObject(CO_mass, CO_diameter)
+
+
+def orbital_objects_data():
     orbital_objects = []
-    clean()
     print('Orbital objects')
     print('Number of objects:')
     quantity = int(input('>> '))
@@ -52,15 +58,24 @@ def new_data():
         OO_velocity = (OO_velocity_x, OO_velocity_y)
         orbital_object = OrbitalObject(OO_mass, OO_position, OO_velocity)
         orbital_objects.append(orbital_object)
+    return orbital_objects
+
+
+def new_data():
     clean()
-    central_object = CentralObject(CO_mass, CO_diameter)
+    field_name, size, scale = field_data()
+    clean()
+    central_object = central_object_data()
+    clean()
+    orbital_objects = orbital_objects_data()
+    clean()
     return Space(size, scale, central_object, orbital_objects, field_name)
 
 
 def load_data(file_handle):
     data = json.load(file_handle)
     try:
-        space_name = data['space_name']
+        name = data['name']
         size = data['size']
         scale = data['scale']
         loaded_central_object = data['central_object']
@@ -76,7 +91,7 @@ def load_data(file_handle):
                 tuple(object['position']),
                 tuple(object['velocity'])
             ))
-        return Space(size, scale, central_object, orbital_objects, space_name)
+        return Space(size, scale, central_object, orbital_objects, name)
     except KeyError as e:
         raise KeyError() from e
     except Exception as e:
@@ -84,8 +99,7 @@ def load_data(file_handle):
 
 
 def save_data(space: Space):
-    communique = '(Press Enter to continue)'
-    name = space.space_name()
+    name = space.name()
     directory = f'{name}'
     parent_dir = 'simulations'
     path_directory = os.path.join(parent_dir, directory)
@@ -113,8 +127,8 @@ def save_data(space: Space):
                         print(f'Renaming canceled {communique}')
                         input()
                         break
-                    elif new_name != space.space_name():
-                        space.set_space_name(new_name)
+                    elif new_name != space.name():
+                        space.set_name(new_name)
                         print(f'Successful name change {communique}')
                         input()
                         return
@@ -131,12 +145,12 @@ def save_data(space: Space):
                 os.mkdir(path_directory)
                 break
             elif option == '0':
-                print(f'Saving abonded {communique}')
+                print(f'Saving abandoned {communique}')
                 input()
             else:
                 wrong_option()
 
-    space._space_image.save(path_image)
+    space._image.save(path_image)
     orbital_objects = []
     for object in space.orbital_objects:
         object_data = {
@@ -150,7 +164,7 @@ def save_data(space: Space):
         scale = space.scale()
         central_object = space.central_object
         results = {
-            'space_name': name,
+            'name': name,
             'size': size,
             'scale': scale,
             'central_object': {
@@ -161,4 +175,33 @@ def save_data(space: Space):
         }
         json.dump(results, file_handle, indent=5)
     print(f'Saving completed {communique}')
-    input()
+
+
+def edit_data(space: Space):
+    def header():
+        print('Data editing'.center(WIDTH))
+        print('-' * WIDTH)
+        print(space.info())
+        print('-' * WIDTH)
+    clean()
+    header()
+    print('1. Edit field')
+    print('2. Edit central object')
+    print('3. Edit Orbital objects')
+    print('0. Cancel')
+    option = input('>> ')
+    clean()
+    header()
+    while True:
+        if option == '1':
+            field_name, size, scale = field_data()
+        elif option == '2':
+            central_object = central_object_data()
+        elif option == '3':
+            orbital_objects = orbital_objects_data()
+        elif option == '0':
+            clean()
+            print(f'Editing abandoned {communique}')
+            input()
+        else:
+            wrong_option()
