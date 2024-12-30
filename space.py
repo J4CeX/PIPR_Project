@@ -14,7 +14,7 @@ class Space:
                  orbital_objects: OrbitalObject = [], space_name='unknown'):
         space_image = Image.new('RGB', (size, size), (0, 0, 0))
         draw = ImageDraw.Draw(space_image)
-        radius = central_object.diameter() / 2
+        radius = (central_object.diameter() / 2) * scale
         position = (size / 2, size / 2)
         central_object.set_position(position)
         draw.circle(position, radius, fill='white')
@@ -50,8 +50,7 @@ class Space:
                 x_pixel = X + x * SCALE
                 y_pixel = Y + y * SCALE
                 self._draw.point((x_pixel, y_pixel))
-
-        #         print((x, ' ', y))
+        #         print(x_pixel, ' ', y_pixel)
         # input()
 
     def show_image(self):
@@ -65,6 +64,9 @@ class Space:
 
     def space_name(self):
         return self._space_name
+
+    def set_space_name(self, new_name):
+        self._space_name = new_name
 
     def info(self):
         info = ''

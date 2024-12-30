@@ -32,5 +32,5 @@ def test_save_data():
         OrbitalObject(200, (2, 2), (20, 0)),
         OrbitalObject(100, (10, 5), (20, 0))
     ]
-    space = Space(200, 200, central_object, orbital_objects, 'test')
+    space = Space(200, 200, central_object, orbital_objects, 'test1')
     save_data(space)

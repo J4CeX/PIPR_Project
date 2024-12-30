@@ -45,8 +45,6 @@ def simulation(space):
             input()
         elif after_simulation_option == '3':
             data.save_data(space)
-            print(f'Saving completed {communique}')
-            input()
         elif after_simulation_option == '0':
             break
         else:
@@ -74,3 +72,18 @@ def show_results(space: Space):
     print(space.info())
     print(f'Showing simulation results {communique}')
     input()
+
+
+def sample_simulations():
+    while True:
+        clean()
+        print('Sample simulations:')
+        print('1. Moon and Earth')
+        print('0. Cancel')
+        option = input('>> ')
+        if option == '1':
+            pass
+        elif option == '0':
+            return
+        else:
+            wrong_option()

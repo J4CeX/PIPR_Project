@@ -7,7 +7,8 @@ from display import (
     wrong_option,
     show_results,
     simulation,
-    edit
+    edit,
+    sample_simulations
 )
 import os
 from PIL import Image
@@ -19,6 +20,7 @@ def main():
         print('Options:')
         print('1. New simulation')
         print('2. Load simulation')
+        print('3. Sample simulations')
         print('0. Exit')
         main_menu_option = input('>> ')
         if main_menu_option == '1':
@@ -61,6 +63,9 @@ def main():
                     break
                 else:
                     wrong_option()
+
+        elif main_menu_option == '3':
+            sample_simulations()
 
         elif main_menu_option == '0':
             clean()

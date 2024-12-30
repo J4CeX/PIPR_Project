@@ -3,7 +3,10 @@ from objects import (
     OrbitalObject,
     CentralObject
 )
-from display import clean
+from display import (
+    clean,
+    wrong_option
+)
 import json
 import os
 
@@ -75,14 +78,59 @@ def load_data(file_handle):
 
 
 def save_data(space: Space):
+    communique = '(Press Enter to continue)'
     name = space.space_name()
     directory = f'{name}'
     parent_dir = 'simulations'
     path_directory = os.path.join(parent_dir, directory)
-    os.mkdir(path_directory)  # rozwiązać problem z istniejącym plikiem
     path_image = f'simulations/{name}/{name}.png'
-    space._space_image.save(path_image)
     path_results = f'simulations/{name}/{name}.json'
+    if not os.path.isdir(parent_dir):
+        os.mkdir(parent_dir)
+    if not os.path.isdir(path_directory):
+        os.mkdir(path_directory)
+    else:
+        while True:
+            clean()
+            print('Simulation of space with such name already exist.')
+            print('1. Rename space name')
+            print('2. Replace file (Delete previous results)')
+            print('0. Cancel')
+            option = input('>> ')
+            if option == '1':
+                while True:
+                    clean()
+                    print('Renaming Space name (leave empty to cancel):')
+                    new_name = input('>> ')
+                    if new_name == '':
+                        clean()
+                        print(f'Renaming canceled {communique}')
+                        input()
+                        break
+                    elif new_name != space.space_name():
+                        space.set_space_name(new_name)
+                        print(f'Successful name change {communique}')
+                        input()
+                        return
+                    else:
+                        clean()
+                        print(f'New name has to be different! {communique}')
+                        input()
+            elif option == '2':
+                if os.path.isfile(path_image):
+                    os.remove(path_image)
+                if os.path.isfile(path_results):
+                    os.remove(path_results)
+                os.rmdir(path_directory)
+                os.mkdir(path_directory)
+                break
+            elif option == '0':
+                print(f'Saving abonded {communique}')
+                input()
+            else:
+                wrong_option()
+
+    space._space_image.save(path_image)
     orbital_objects = []
     for object in space.orbital_objects:
         object_data = {
@@ -106,3 +154,5 @@ def save_data(space: Space):
             'orbital_objects': orbital_objects
         }
         json.dump(results, file_handle, indent=5)
+    print(f'Saving completed {communique}')
+    input()

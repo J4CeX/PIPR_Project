@@ -30,6 +30,8 @@ Zrealizować program, który dla zadanej konfiguracji narysuje wynik symulacji r
     - nadpisywanie wyników
     - kolizja obiektów
     - zapisywanie raportu
+    - skale obrazu można przedstawić jako 1/średnica obiektu na orbicie
+    - obsługiwać problem gdy wyniki nie mieszczą się w obrazie
 
 
 opis:
