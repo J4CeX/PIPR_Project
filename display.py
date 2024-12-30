@@ -48,6 +48,8 @@ def simulation(space):
             input()
         elif after_simulation_option == '3':
             data.save_data(space)
+            print(f'Saving completed {communique}')
+            input()
         elif after_simulation_option == '0':
             break
         else:
@@ -67,7 +69,6 @@ def load_simulation():
             results_file = f'/{files[load_file_option-1]}.json'
             with open(path + results_file, 'r') as file_handle:
                 space = data.load_data(file_handle)
-                input()
             while True:
                 clean()
                 print('1. Show simulation results')
@@ -95,17 +96,18 @@ def load_simulation():
 
 
 def edit(space: Space):
-    clean()
-    print('Would you like to edit any values?')
-    print('1. Yes')
-    print('2. No')
-    option = input('>> ')
-    if option == '1':
-        data.edit_data(space)
-    elif option == '2':
-        return
-    else:
-        wrong_option()
+    while True:
+        clean()
+        print('Would you like to edit any values?')
+        print('1. Yes')
+        print('2. No')
+        option = input('>> ')
+        if option == '1':
+            data.edit_data(space)
+        elif option == '2':
+            return
+        else:
+            wrong_option()
 
 
 def show_results(space: Space):

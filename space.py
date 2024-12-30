@@ -26,6 +26,27 @@ class Space:
         self._image = space_image
         self._draw = draw
 
+    def show_image(self):
+        self._image.show()
+
+    def size(self):
+        return self._size
+
+    def scale(self):
+        return self._scale
+
+    def name(self):
+        return self._name
+
+    def set_name(self, new_name):
+        self._name = new_name
+
+    def set_size(self, new_size):
+        self._size = new_size
+
+    def set_scale(self, new_scale):
+        self._scale = new_scale
+
     def simulate(self, steps: int):
         G = 6.67430e-11
         DAY = 3600 * 24
@@ -50,27 +71,6 @@ class Space:
                 x_pixel = X + x * SCALE
                 y_pixel = Y + y * SCALE
                 self._draw.point((x_pixel, y_pixel))
-
-    def show_image(self):
-        self._image.show()
-
-    def size(self):
-        return self._size
-
-    def scale(self):
-        return self._scale
-
-    def name(self):
-        return self._name
-
-    def set_name(self, new_name):
-        self._name = new_name
-
-    def set_size(self, new_size):
-        self._size = new_size
-
-    def set_scale(self, new_scale):
-        self._scale = new_scale
 
     def info(self):
         info = ''

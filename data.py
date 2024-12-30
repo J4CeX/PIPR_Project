@@ -37,17 +37,17 @@ def orbital_objects_data():
     print('Orbital objects')
     print('Number of objects:')
     quantity = int(input('>> '))
+    message = 'Central point of the central object is placed on x=0, y=0'
+    print('*' * WIDTH)
+    print('Objects are placed on a Cartesian plane'.center(WIDTH))
+    print(message.center(WIDTH))
+    print('*' * WIDTH)
+    print('Orbital objects')
     for index in range(0, quantity):
-        clean()
-        print('Orbital objects')
+        print()
         print(f'Object: {index+1}.')
         print('Mass (kilograms):')
         OO_mass = float(input('>> '))
-        message = 'Central point of the central object is placed on x=0, y=0'
-        print('*' * WIDTH)
-        print('Objects are placed on a Cartesian plane'.center(WIDTH))
-        print(message.center(WIDTH))
-        print('*' * WIDTH)
         print('Position:')
         OO_x = float(input('(x) >> '))
         OO_y = float(input('(y) >> '))
@@ -117,6 +117,7 @@ def save_data(space: Space):
             print('2. Replace file (Delete previous results)')
             print('0. Cancel')
             option = input('>> ')
+            clean()
             if option == '1':
                 while True:
                     clean()
@@ -174,7 +175,6 @@ def save_data(space: Space):
             'orbital_objects': orbital_objects
         }
         json.dump(results, file_handle, indent=5)
-    print(f'Saving completed {communique}')
 
 
 def edit_data(space: Space):
@@ -198,13 +198,17 @@ def edit_data(space: Space):
             space.set_name(field_name)
             space.set_size(size)
             space.set_scale(scale)
+            break
         elif option == '2':
             space.central_object = central_object_data()
+            break
         elif option == '3':
             space.orbital_objects = orbital_objects_data()
+            break
         elif option == '0':
             clean()
             print(f'Editing abandoned {communique}')
             input()
+            return
         else:
             wrong_option()

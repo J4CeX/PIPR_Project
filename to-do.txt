@@ -27,9 +27,6 @@ Zrealizować program, który dla zadanej konfiguracji narysuje wynik symulacji r
 5. Do rozwiązania:
     - wprowadzanie dane ktore powinny byc integerem muszą obsługiwać wyjątki gdy wprowadzony zostanie string
     - kolizja obiektów
-    - zapisywanie raportu
-    - skale obrazu można przedstawić jako 1/średnica obiektu na orbicie
-    - obsługiwać problem gdy wyniki nie mieszczą się w obrazie
 
 
 opis:

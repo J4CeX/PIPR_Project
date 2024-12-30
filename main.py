@@ -18,8 +18,7 @@ def main():
         print('0. Exit')
         main_menu_option = input('>> ')
         if main_menu_option == '1':
-            space = new_data()
-            simulation(space)
+            simulation(new_data())
         elif main_menu_option == '2':
             load_simulation()
         elif main_menu_option == '3':
