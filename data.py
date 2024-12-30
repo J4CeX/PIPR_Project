@@ -195,10 +195,13 @@ def edit_data(space: Space):
     while True:
         if option == '1':
             field_name, size, scale = field_data()
+            space.set_name(field_name)
+            space.set_size(size)
+            space.set_scale(scale)
         elif option == '2':
-            central_object = central_object_data()
+            space.central_object = central_object_data()
         elif option == '3':
-            orbital_objects = orbital_objects_data()
+            space.orbital_objects = orbital_objects_data()
         elif option == '0':
             clean()
             print(f'Editing abandoned {communique}')
