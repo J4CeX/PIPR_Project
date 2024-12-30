@@ -1,8 +1,8 @@
-import os
 from space import Space
 from objects import OrbitalObject, CentralObject
-import data
 from PIL import Image
+import data
+import os
 
 
 communique = '(Press Enter to continue)'

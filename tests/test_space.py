@@ -40,7 +40,10 @@ def test_Space_simulate():
 
 
 def test_Space_simulate_Earth_Sun():
-    scale = 3e-9  # based on image size, in real scale if one pixel is 12756000 meters (earth diameter) then range between Sun and Earth would be about 11728 pixels
+    scale = 3e-9
+    # based on image size, in real scale if one pixel is
+    # 12756000 meters (earth diameter) then range between
+    # Sun and Earth would be about 11728 pixels
     sun_mass = 1.989e30
     sun_diameter = 6.9634e8
     earth_mass = 5.972e24
