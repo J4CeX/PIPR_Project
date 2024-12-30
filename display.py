@@ -1,16 +1,18 @@
 import os
 from space import Space
+from objects import OrbitalObject, CentralObject
 import data
 
 
 communique = '(Press Enter to continue)'
 
+WIDTH = 50
+
 
 def header():
-    width = 50
-    print('*' * width)
-    print('SIMULATION OF MOTION IN A GRAVITATIONAL FIELD'.center(width))
-    print('*' * width)
+    print('*' * WIDTH)
+    print('SIMULATION OF MOTION IN A GRAVITATIONAL FIELD'.center(WIDTH))
+    print('*' * WIDTH)
 
 
 def clean():
@@ -78,11 +80,27 @@ def sample_simulations():
     while True:
         clean()
         print('Sample simulations:')
-        print('1. Moon and Earth')
+        print('1. Earth and Moon ')
         print('0. Cancel')
         option = input('>> ')
         if option == '1':
-            pass
+            name = 'Earth_and_Moon_simulation'
+            scale = 1 / 1.7374e6
+            earth_mass = 5.972e24
+            earth_diameter = 1.2756e7
+            moon_mass = 7.34e22
+            average_distance = 3.84399e8
+            velocityY = 1023
+            central_object = CentralObject(earth_mass, earth_diameter)
+            orbital_objects = [
+                OrbitalObject(
+                    moon_mass,
+                    (average_distance, 0),
+                    (0, velocityY))
+            ]
+            space = Space(600, scale, central_object, orbital_objects, name)
+            simulation(space)
+            return
         elif option == '0':
             return
         else:
