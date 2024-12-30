@@ -24,7 +24,6 @@ def main():
             load_simulation()
         elif main_menu_option == '3':
             sample_simulations()
-
         elif main_menu_option == '0':
             clean()
             print("Goodbye")

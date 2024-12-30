@@ -7,7 +7,7 @@ import os
 
 communique = '(Press Enter to continue)'
 
-WIDTH = 50
+WIDTH = 60
 
 
 def header():

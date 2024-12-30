@@ -40,6 +40,7 @@ def test_Space_simulate():
 
 
 def test_Space_simulate_Earth_Sun():
+    name = 'Sun_and_Earth_relative_scale'
     scale = 3e-9
     # based on image size, in real scale if one pixel is
     # 12756000 meters (earth diameter) then range between
@@ -56,13 +57,14 @@ def test_Space_simulate_Earth_Sun():
             (average_distance, 0),
             (0, velocityY))
     ]
-    space = Space(1000, scale, central_object, orbital_objects, 'test_test')
+    space = Space(1000, scale, central_object, orbital_objects, name)
     space.simulate(365)
     space.show_image()
 
 
 def test_Space_simulate_Earth_Sun_real():
     # za duży wymiar
+    name = 'Sun_and_Earth_real'
     scale = 1 / 1.2756e7
     sun_mass = 1.989e30
     sun_diameter = 6.9634e8
@@ -76,12 +78,13 @@ def test_Space_simulate_Earth_Sun_real():
             (average_distance, 0),
             (0, velocityY))
     ]
-    space = Space(24000, scale, central_object, orbital_objects, 'test_test')
+    space = Space(24000, scale, central_object, orbital_objects, name)
     space.simulate(365)
     space.show_image()
 
 
 def test_Space_simulate_Earth_Moon():
+    name = 'Sun_and_Earth'
     scale = 1 / 1.7374e6
     earth_mass = 5.972e24
     earth_diameter = 1.2756e7
@@ -95,6 +98,6 @@ def test_Space_simulate_Earth_Moon():
             (average_distance, 0),
             (0, velocityY))
     ]
-    space = Space(600, scale, central_object, orbital_objects, 'test_test')
+    space = Space(600, scale, central_object, orbital_objects, name)
     space.simulate(365)
     space.show_image()

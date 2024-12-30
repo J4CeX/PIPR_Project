@@ -5,7 +5,8 @@ from objects import (
 )
 from display import (
     clean,
-    wrong_option
+    wrong_option,
+    WIDTH
 )
 import json
 import os
@@ -21,9 +22,9 @@ def new_data():
     scale = 1 / float(input('>> 1px:'))
     clean()
     print('Central object')
-    print('Diameter:')
+    print('Diameter (meters):')
     CO_diameter = float(input('>> '))
-    print('Mass:')
+    print('Mass (kilograms):')
     CO_mass = float(input('>> '))
     orbital_objects = []
     clean()
@@ -34,8 +35,13 @@ def new_data():
         clean()
         print('Orbital objects')
         print(f'Object: {index+1}.')
-        print('Mass:')
+        print('Mass (kilograms):')
         OO_mass = float(input('>> '))
+        message = 'Central point of the central object is placed on x=0, y=0'
+        print('*' * WIDTH)
+        print('Objects are placed on a Cartesian plane'.center(WIDTH))
+        print(message.center(WIDTH))
+        print('*' * WIDTH)
         print('Position:')
         OO_x = float(input('(x) >> '))
         OO_y = float(input('(y) >> '))
