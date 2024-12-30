@@ -1,17 +1,11 @@
-from data import (
-    new_data,
-    load_data,
-)
+from data import new_data
 from display import (
     clean,
     wrong_option,
-    show_results,
     simulation,
-    edit,
+    load_simulation,
     sample_simulations
 )
-import os
-from PIL import Image
 
 
 def main():
@@ -27,43 +21,7 @@ def main():
             space = new_data()
             simulation(space)
         elif main_menu_option == '2':
-            files = os.listdir('simulations')
-            while True:
-                clean()
-                for index in range(0, len(files)):
-                    print(f'{index+1}. {files[index]}')
-                print('0. Back to main menu')
-                load_file_option = int(input('>> '))  # problem
-                if load_file_option > 0 and load_file_option <= len(files):
-                    path = f'simulations/{files[load_file_option-1]}'
-                    results_file = f'/{files[load_file_option-1]}.json'
-                    with open(path + results_file, 'r') as file_handle:
-                        space = load_data(file_handle)
-                        while True:
-                            clean()
-                            print('1. Show simulation results')
-                            print('2. Show simulation graphics')
-                            print('3. Start new simulation from the last step')
-                            print('0. Cancel')
-                            load_option = input('>> ')
-                            if load_option == '1':
-                                show_results(space)
-                            elif load_option == '2':
-                                img_file = f'/{files[load_file_option-1]}.png'
-                                image = Image.open(path + img_file)
-                                image.show()
-                            elif load_option == '3':
-                                edit(space)
-                                simulation(space)
-                            elif load_option == '0':
-                                break
-                            else:
-                                wrong_option()
-                elif load_file_option == 0:
-                    break
-                else:
-                    wrong_option()
-
+            load_simulation()
         elif main_menu_option == '3':
             sample_simulations()
 

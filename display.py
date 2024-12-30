@@ -2,6 +2,7 @@ import os
 from space import Space
 from objects import OrbitalObject, CentralObject
 import data
+from PIL import Image
 
 
 communique = '(Press Enter to continue)'
@@ -48,6 +49,45 @@ def simulation(space):
         elif after_simulation_option == '3':
             data.save_data(space)
         elif after_simulation_option == '0':
+            break
+        else:
+            wrong_option()
+
+
+def load_simulation():
+    files = os.listdir('simulations')
+    while True:
+        clean()
+        for index in range(0, len(files)):
+            print(f'{index+1}. {files[index]}')
+        print('0. Back to main menu')
+        load_file_option = int(input('>> '))  # problem
+        if load_file_option > 0 and load_file_option <= len(files):
+            path = f'simulations/{files[load_file_option-1]}'
+            results_file = f'/{files[load_file_option-1]}.json'
+            with open(path + results_file, 'r') as file_handle:
+                space = data.load_data(file_handle)
+                while True:
+                    clean()
+                    print('1. Show simulation results')
+                    print('2. Show simulation graphics')
+                    print('3. Start new simulation from the last step')
+                    print('0. Cancel')
+                    load_option = input('>> ')
+                    if load_option == '1':
+                        show_results(space)
+                    elif load_option == '2':
+                        img_file = f'/{files[load_file_option-1]}.png'
+                        image = Image.open(path + img_file)
+                        image.show()
+                    elif load_option == '3':
+                        edit(space)
+                        simulation(space)
+                    elif load_option == '0':
+                        break
+                    else:
+                        wrong_option()
+        elif load_file_option == 0:
             break
         else:
             wrong_option()
