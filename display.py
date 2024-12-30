@@ -67,26 +67,26 @@ def load_simulation():
             results_file = f'/{files[load_file_option-1]}.json'
             with open(path + results_file, 'r') as file_handle:
                 space = data.load_data(file_handle)
-                while True:
-                    clean()
-                    print('1. Show simulation results')
-                    print('2. Show simulation graphics')
-                    print('3. Start new simulation from the last step')
-                    print('0. Cancel')
-                    load_option = input('>> ')
-                    if load_option == '1':
-                        show_results(space)
-                    elif load_option == '2':
-                        img_file = f'/{files[load_file_option-1]}.png'
-                        image = Image.open(path + img_file)
-                        image.show()
-                    elif load_option == '3':
-                        edit(space)
-                        simulation(space)
-                    elif load_option == '0':
-                        break
-                    else:
-                        wrong_option()
+            while True:
+                clean()
+                print('1. Show simulation results')
+                print('2. Show simulation graphics')
+                print('3. Start new simulation from the last step')
+                print('0. Cancel')
+                load_option = input('>> ')
+                if load_option == '1':
+                    show_results(space)
+                elif load_option == '2':
+                    img_file = f'/{files[load_file_option-1]}.png'
+                    image = Image.open(path + img_file)
+                    image.show()
+                elif load_option == '3':
+                    edit(space)
+                    simulation(space)
+                elif load_option == '0':
+                    break
+                else:
+                    wrong_option()
         elif load_file_option == 0:
             break
         else:
