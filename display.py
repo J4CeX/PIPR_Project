@@ -83,8 +83,8 @@ def load_simulation():
                     image = Image.open(path + img_file)
                     image.show()
                 elif load_option == '3':
-                    edit(space)
-                    simulation(space)
+                    if edit(space):
+                        simulation(space)
                 elif load_option == '0':
                     break
                 else:
@@ -101,11 +101,15 @@ def edit(space: Space):
         print('Would you like to edit any values?')
         print('1. Yes')
         print('2. No')
+        print('0. Cancel')
         option = input('>> ')
         if option == '1':
             data.edit_data(space)
+            return True
         elif option == '2':
-            return
+            return True
+        elif option == '0':
+            return False
         else:
             wrong_option()
 

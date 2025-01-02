@@ -11,7 +11,8 @@ from math import sqrt
 
 class Space:
     def __init__(self, size: int, scale: int, central_object: CentralObject,
-                 orbital_objects: OrbitalObject = [], name='unknown'):
+                 orbital_objects: OrbitalObject = [],
+                 name='unknown', collisions=[]):
         space_image = Image.new('RGB', (size, size), (0, 0, 0))
         draw = ImageDraw.Draw(space_image)
         radius = (central_object.diameter() / 2) * scale
@@ -25,7 +26,7 @@ class Space:
         self.orbital_objects = orbital_objects
         self._image = space_image
         self._draw = draw
-        self.collisions = []
+        self.collisions = collisions
 
     def show_image(self):
         self._image.show()
@@ -55,8 +56,9 @@ class Space:
         M = self.central_object.mass()
         X, Y = self.central_object.position()
         SCALE = self.scale()
+        objects = self.orbital_objects
         for step in range(steps):
-            for object in self.orbital_objects:
+            for object in objects:
                 x, y = object.position()
 
                 r = sqrt(x**2 + y**2)
@@ -75,27 +77,27 @@ class Space:
                 pixel = (x_pixel, y_pixel)
                 object.set_pixel(pixel)
                 self._draw.point(pixel)
-            for first in self.orbital_objects:
-                for second in self.orbital_objects:
-                    if first.pixel == second.pixel:
-                        if first.id() != second.id():
-                            self._draw.point(pixel, fill='yellow')
-                            collisions.append((first.pixel, step))
+            quantity = len(self.orbital_objects)
+            for first in range(quantity):
+                for second in range(first + 1, quantity):
+                    if objects[first].pixel() == objects[second].pixel():
+                        self._draw.point(pixel, fill='yellow')
+                        collisions.append((objects[first].pixel(), step))
         self.collisions = collisions
 
     def info(self):
         info = ''
         info += f'Space name: {self._name}\n'
-        info += f'Space size: {self._size}\n'
-        info += f'Space scale: {self._scale}\n'
+        info += f'Space size(px): {self._size}\n'
+        info += f'Space scale(px/m): {self._scale}\n'
         info += 'Central Object:\n'
-        info += f'\tMass: {self.central_object.mass()}\n'
-        info += f'\tDiameter: {self.central_object.diameter()}\n'
+        info += f'\tMass(kg): {self.central_object.mass()}\n'
+        info += f'\tDiameter(m): {self.central_object.diameter()}\n'
         info += 'Orbital Objects:\n'
         index = 1
         for object in self.orbital_objects:
             info += f'Id: {object.id()}\n'
-            info += f'Mass: {object.mass()}\n'
+            info += f'Mass(kg): {object.mass()}\n'
             info += f'\tPosition(x, y): {object.position()}\n'
             info += f'\tVelocity(x, y): {object.velocity()}\n'
             index += 1
@@ -103,7 +105,7 @@ class Space:
         index = 1
         for collision in self.collisions:
             info += f'{index}.:\t'
-            info += f'Position(x, y): {collision[0]}, '
+            info += f'Position(x, y): {collision[0]}; '
             info += f'Step: {collision[1]}\n'
             index += 1
         return info

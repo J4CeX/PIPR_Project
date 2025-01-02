@@ -112,7 +112,9 @@ def load_data(file_handle):
                 tuple(object['position']),
                 tuple(object['velocity'])
             ))
-        return Space(size, scale, central_object, orbital_objects, name)
+        collisions = data['collisions']
+        return Space(size, scale, central_object,
+                     orbital_objects, name, collisions)
     except KeyError as e:
         raise KeyError() from e
     except Exception as e:
@@ -186,6 +188,7 @@ def save_data(space: Space):
         size = space.size()
         scale = space.scale()
         central_object = space.central_object
+        collisions = space.collisions
         results = {
             'name': name,
             'size': size,
@@ -194,9 +197,10 @@ def save_data(space: Space):
                 'mass': central_object.mass(),
                 'diameter': central_object.diameter()
             },
-            'orbital_objects': orbital_objects
+            'orbital_objects': orbital_objects,
+            'collisions': collisions
         }
-        json.dump(results, file_handle, indent=5)
+        json.dump(results, file_handle, indent=6)
 
 
 def edit_data(space: Space):

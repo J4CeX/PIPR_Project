@@ -1,5 +1,6 @@
 from space import Space
 from objects import OrbitalObject, CentralObject
+from data import save_data
 
 
 def test_Space_create():
@@ -86,7 +87,7 @@ def test_Space_simulate_Earth_Sun_real():
 
 
 def test_Space_simulate_Earth_Moon():
-    name = 'Sun_and_Earth'
+    name = 'Earth_and_Moon'
     scale = 1 / 1.7374e6
     earth_mass = 5.972e24
     earth_diameter = 1.2756e7
@@ -104,3 +105,31 @@ def test_Space_simulate_Earth_Moon():
     space = Space(600, scale, central_object, orbital_objects, name)
     space.simulate(365)
     space.show_image()
+
+
+def test_Space_simulate_collision():
+    name = 'Earth_and_Moon_collision'
+    scale = 1 / 1.7374e6
+    earth_mass = 5.972e24
+    earth_diameter = 1.2756e7
+    moon_mass = 7.34e22
+    average_distance = 3.84399e8
+    velocityY = 1023
+    central_object = CentralObject(earth_mass, earth_diameter)
+    orbital_objects = [
+        OrbitalObject(
+            1,
+            moon_mass,
+            (average_distance, 0),
+            (0, velocityY)),
+        OrbitalObject(
+            2,
+            moon_mass,
+            (average_distance, 0),
+            (0, velocityY)),
+    ]
+    space = Space(600, scale, central_object, orbital_objects, name)
+    space.simulate(365)
+    assert len(space.collisions) == 365
+    space.show_image()
+    save_data(space)
