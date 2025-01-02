@@ -25,10 +25,23 @@ class CentralObject(Object):
 
 
 class OrbitalObject(Object):
-    def __init__(self, mass, positionXY, velocityXY: tuple):
+    def __init__(self, id: int, mass, positionXY, velocityXY: tuple):
         super().__init__(mass, positionXY)
+        self._id = id
         self.vx = velocityXY[0]
         self.vy = velocityXY[1]
+        self.x_pixel = None
+        self.y_pixel = None
+
+    def id(self):
+        return self._id
 
     def velocity(self):
         return (self.vx, self.vy)
+
+    def pixel(self):
+        return (self.x_pixel, self.y_pixel)
+
+    def set_pixel(self, new_pixel: tuple):
+        self.x_pixel = new_pixel[0]
+        self.y_pixel = new_pixel[1]

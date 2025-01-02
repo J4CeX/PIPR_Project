@@ -94,6 +94,7 @@ def test_Space_simulate_Earth_Moon():
     central_object = CentralObject(earth_mass, earth_diameter)
     orbital_objects = [
         OrbitalObject(
+            1,
             moon_mass,
             (average_distance, 0),
             (0, velocityY))

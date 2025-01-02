@@ -62,9 +62,10 @@ def orbital_objects_data():
     print(message.center(WIDTH))
     print('*' * WIDTH)
     print('Orbital objects')
-    for index in range(0, quantity):
+    for id in range(1, quantity+1):
         print()
-        print(f'Object: {index+1}.')
+        print('Object:')
+        print(f'Id: {id}')
         print('Mass (kilograms):')
         OO_mass = float_input()
         print('Position (meters, for instance average radius and zero):')
@@ -75,7 +76,7 @@ def orbital_objects_data():
         OO_velocity_x = float_input('(x) ')
         OO_velocity_y = float_input('(y) ')
         OO_velocity = (OO_velocity_x, OO_velocity_y)
-        orbital_object = OrbitalObject(OO_mass, OO_position, OO_velocity)
+        orbital_object = OrbitalObject(id, OO_mass, OO_position, OO_velocity)
         orbital_objects.append(orbital_object)
     return orbital_objects
 
@@ -106,6 +107,7 @@ def load_data(file_handle):
         orbital_objects = []
         for object in loaded_orbital_objects:
             orbital_objects.append(OrbitalObject(
+                object['id'],
                 object['mass'],
                 tuple(object['position']),
                 tuple(object['velocity'])
@@ -174,6 +176,7 @@ def save_data(space: Space):
     orbital_objects = []
     for object in space.orbital_objects:
         object_data = {
+            'id': object.id(),
             'mass': object.mass(),
             'position': object.position(),
             'velocity': object.velocity()

@@ -135,6 +135,7 @@ def sample_simulations():
             central_object = CentralObject(earth_mass, earth_diameter)
             orbital_objects = [
                 OrbitalObject(
+                    1,
                     moon_mass,
                     (average_distance, 0),
                     (0, velocityY))

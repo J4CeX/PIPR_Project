@@ -68,9 +68,15 @@ class Space:
                 y += object.vy * T
                 object.set_position((x, y))
 
-                x_pixel = X + x * SCALE
-                y_pixel = Y + y * SCALE
-                self._draw.point((x_pixel, y_pixel))
+                x_pixel = int(X + x * SCALE)
+                y_pixel = int(Y + y * SCALE)
+                pixel = (x_pixel, y_pixel)
+                object.set_pixel(pixel)
+                self._draw.point(pixel)
+            for first_object in self.orbital_objects:
+                for second_object in self.orbital_objects:
+                    if first_object.pixel == second_object.pixel:
+                        pass
 
     def info(self):
         info = ''
@@ -83,7 +89,8 @@ class Space:
         info += 'Orbital Objects:\n'
         index = 1
         for object in self.orbital_objects:
-            info += f'{index}.\tMass: {object.mass()}\n'
+            info += f'Id: {object.id()}\n'
+            info += f'Mass: {object.mass()}\n'
             info += f'\tPosition(x, y): {object.position()}\n'
             info += f'\tVelocity(x, y): {object.velocity()}\n'
             index += 1
