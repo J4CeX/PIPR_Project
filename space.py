@@ -76,7 +76,7 @@ class Space:
                 y_pixel = int(Y + y * SCALE)
                 pixel = (x_pixel, y_pixel)
                 object.set_pixel(pixel)
-                self._draw.point(pixel)
+                self._draw.point(pixel, fill=object.color)
             quantity = len(self.orbital_objects)
             for first in range(quantity):
                 for second in range(first + 1, quantity):
@@ -100,6 +100,7 @@ class Space:
             info += f'Mass(kg): {object.mass()}\n'
             info += f'\tPosition(x, y): {object.position()}\n'
             info += f'\tVelocity(x, y): {object.velocity()}\n'
+            info += f'\tColor: {object.color}\n'
             index += 1
         info += f'Collisions: {len(self.collisions)}\n'
         index = 1

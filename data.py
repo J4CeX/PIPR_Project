@@ -32,6 +32,23 @@ def float_input(msg=''):
             return number
 
 
+def RGB_input():
+    print('[0;255]')
+    while True:
+        R = int_input('R: ')
+        if R >= 0 and R <= 255:
+            break
+    while True:
+        G = int_input('G: ')
+        if G >= 0 and G <= 255:
+            break
+    while True:
+        B = int_input('B: ')
+        if B >= 0 and B <= 255:
+            break
+    return (R, G, B)
+
+
 def field_data():
     print('Field name:')
     field_name = str(input('>> '))
@@ -76,7 +93,47 @@ def orbital_objects_data():
         OO_velocity_x = float_input('(x) ')
         OO_velocity_y = float_input('(y) ')
         OO_velocity = (OO_velocity_x, OO_velocity_y)
-        orbital_object = OrbitalObject(id, OO_mass, OO_position, OO_velocity)
+        color = None
+        while True:
+            clean()
+            print(f'Id: {id}')
+            print('Color:')
+            print('1. Red')
+            print('2. Blue')
+            print('3. Yellow')
+            print('4. Green')
+            print('5. Pink')
+            print('6. Orange')
+            print('7. RGB')
+            print('8. Random')
+            color_option = input('>> ')
+            if color_option == '1':
+                color = (255, 0, 0)
+                break
+            elif color_option == '2':
+                color = (0, 0, 255)
+                break
+            elif color_option == '3':
+                color = (255, 200, 0)
+                break
+            elif color_option == '4':
+                color = (0, 255, 0)
+                break
+            elif color_option == '5':
+                color = (255, 100, 200)
+                break
+            elif color_option == '6':
+                color = (255, 165, 0)
+                break
+            elif color_option == '7':
+                color = RGB_input()
+                break
+            elif color_option == '8':
+                break
+            else:
+                wrong_option()
+        orbital_object = OrbitalObject(id, OO_mass, OO_position,
+                                       OO_velocity, color)
         orbital_objects.append(orbital_object)
     return orbital_objects
 
@@ -110,7 +167,8 @@ def load_data(file_handle):
                 object['id'],
                 object['mass'],
                 tuple(object['position']),
-                tuple(object['velocity'])
+                tuple(object['velocity']),
+                object['color']
             ))
         collisions = data['collisions']
         return Space(size, scale, central_object,
@@ -181,7 +239,8 @@ def save_data(space: Space):
             'id': object.id(),
             'mass': object.mass(),
             'position': object.position(),
-            'velocity': object.velocity()
+            'velocity': object.velocity(),
+            'color': object.color
         }
         orbital_objects.append(object_data)
     with open(path_results, 'w') as file_handle:
