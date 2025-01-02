@@ -18,9 +18,11 @@ def test_load_data():
         assert space.name() == 'test1'
         assert space.central_object.mass() == 2000
         assert space.central_object.diameter() == 100
+        assert space.orbital_objects[0].id() == 1
         assert space.orbital_objects[0].mass() == 200
         assert space.orbital_objects[0].position() == (2, 2)
         assert space.orbital_objects[0].velocity() == (20, 0)
+        assert space.orbital_objects[1].id() == 2
         assert space.orbital_objects[1].mass() == 100
         assert space.orbital_objects[1].position() == (10, 5)
         assert space.orbital_objects[1].velocity() == (20, 0)
@@ -29,8 +31,8 @@ def test_load_data():
 def test_save_data():
     central_object = CentralObject(2000, 100)
     orbital_objects = [
-        OrbitalObject(200, (2, 2), (20, 0)),
-        OrbitalObject(100, (10, 5), (20, 0))
+        OrbitalObject(1, 200, (2, 2), (20, 0)),
+        OrbitalObject(2, 100, (10, 5), (20, 0))
     ]
     space = Space(200, 200, central_object, orbital_objects, 'test1')
     save_data(space)

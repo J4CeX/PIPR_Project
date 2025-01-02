@@ -25,6 +25,7 @@ class Space:
         self.orbital_objects = orbital_objects
         self._image = space_image
         self._draw = draw
+        self.collisions = []
 
     def show_image(self):
         self._image.show()
@@ -48,6 +49,7 @@ class Space:
         self._scale = new_scale
 
     def simulate(self, steps: int):
+        collisions = []
         G = 6.67430e-11
         T = 3600 * 24
         M = self.central_object.mass()
@@ -73,10 +75,13 @@ class Space:
                 pixel = (x_pixel, y_pixel)
                 object.set_pixel(pixel)
                 self._draw.point(pixel)
-            for first_object in self.orbital_objects:
-                for second_object in self.orbital_objects:
-                    if first_object.pixel == second_object.pixel:
-                        pass
+            for first in self.orbital_objects:
+                for second in self.orbital_objects:
+                    if first.pixel == second.pixel:
+                        if first.id() != second.id():
+                            self._draw.point(pixel, fill='yellow')
+                            collisions.append((first.pixel, step))
+        self.collisions = collisions
 
     def info(self):
         info = ''
@@ -93,5 +98,12 @@ class Space:
             info += f'Mass: {object.mass()}\n'
             info += f'\tPosition(x, y): {object.position()}\n'
             info += f'\tVelocity(x, y): {object.velocity()}\n'
+            index += 1
+        info += f'Collisions: {len(self.collisions)}\n'
+        index = 1
+        for collision in self.collisions:
+            info += f'{index}.:\t'
+            info += f'Position(x, y): {collision[0]}, '
+            info += f'Step: {collision[1]}\n'
             index += 1
         return info

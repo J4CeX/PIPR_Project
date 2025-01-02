@@ -5,8 +5,8 @@ from objects import OrbitalObject, CentralObject
 def test_Space_create():
     central_object = CentralObject(2000, 100)
     orbital_objects = [
-        OrbitalObject(200, (2, 2), (20, 0)),
-        OrbitalObject(100, (10, 5), (20, 0))
+        OrbitalObject(1, 200, (2, 2), (20, 0)),
+        OrbitalObject(2, 100, (10, 5), (20, 0))
     ]
     space = Space(500, 200, central_object, orbital_objects)
     assert space.size() == 500
@@ -20,8 +20,8 @@ def test_Space_create():
 def test_Space_set_name():
     central_object = CentralObject(2000, 100)
     orbital_objects = [
-        OrbitalObject(200, (2, 2), (20, 0)),
-        OrbitalObject(100, (10, 5), (20, 0))
+        OrbitalObject(1, 200, (2, 2), (20, 0)),
+        OrbitalObject(2, 100, (10, 5), (20, 0))
     ]
     space = Space(500, 200, central_object, orbital_objects)
     assert space.name() == 'unknown'
@@ -32,8 +32,8 @@ def test_Space_set_name():
 def test_Space_simulate():
     central_object = CentralObject(2000, 100)
     orbital_objects = [
-        OrbitalObject(200, (2, 2), (20, 0)),
-        OrbitalObject(100, (10, 5), (20, 0))
+        OrbitalObject(1, 200, (2, 2), (20, 0)),
+        OrbitalObject(2, 100, (10, 5), (20, 0))
     ]
     space = Space(200, 200, central_object, orbital_objects, 'test')
     space.simulate(1)
@@ -53,6 +53,7 @@ def test_Space_simulate_Earth_Sun():
     central_object = CentralObject(sun_mass, sun_diameter)
     orbital_objects = [
         OrbitalObject(
+            1,
             earth_mass,
             (average_distance, 0),
             (0, velocityY))
@@ -74,6 +75,7 @@ def test_Space_simulate_Earth_Sun_real():
     central_object = CentralObject(sun_mass, sun_diameter)
     orbital_objects = [
         OrbitalObject(
+            1,
             earth_mass,
             (average_distance, 0),
             (0, velocityY))

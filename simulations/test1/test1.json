@@ -8,6 +8,7 @@
      },
      "orbital_objects": [
           {
+               "id": 1,
                "mass": 200,
                "position": [
                     2,
@@ -19,6 +20,7 @@
                ]
           },
           {
+               "id": 2,
                "mass": 100,
                "position": [
                     10,
