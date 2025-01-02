@@ -25,7 +25,6 @@ Zrealizować program, który dla zadanej konfiguracji narysuje wynik symulacji r
         * wybór pliku z Menu
     - po przeprowadzeniu symulacji (krok 1) generuje raport oraz pyta i przedzodzi do kroków 2 i 3
 5. Do rozwiązania:
-    - wprowadzanie dane ktore powinny byc integerem muszą obsługiwać wyjątki gdy wprowadzony zostanie string
     - kolizja obiektów
 
 

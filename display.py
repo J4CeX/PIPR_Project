@@ -28,7 +28,7 @@ def wrong_option():
 
 def simulation(space):
     clean()
-    print('Enter steps number: ')
+    print('Enter steps (days) number: ')
     steps = data.int_input()
     space.simulate(steps)
     while True:

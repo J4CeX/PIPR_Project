@@ -49,7 +49,7 @@ class Space:
 
     def simulate(self, steps: int):
         G = 6.67430e-11
-        DAY = 3600 * 24
+        T = 3600 * 24
         M = self.central_object.mass()
         X, Y = self.central_object.position()
         SCALE = self.scale()
@@ -62,10 +62,10 @@ class Space:
                 ax = a * (x / r)
                 ay = a * (y / r)
 
-                object.vx += ax * DAY
-                object.vy += ay * DAY
-                x += object.vx * DAY
-                y += object.vy * DAY
+                object.vx += ax * T
+                object.vy += ay * T
+                x += object.vx * T
+                y += object.vy * T
                 object.set_position((x, y))
 
                 x_pixel = X + x * SCALE
