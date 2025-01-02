@@ -19,6 +19,8 @@ def int_input(msg=''):
         if number.isdigit():
             number = int(number)
             return number
+        else:
+            print('It has to be int!')
 
 
 def float_input(msg=''):
@@ -27,6 +29,7 @@ def float_input(msg=''):
         try:
             number = float(number)
         except ValueError:
+            print('It has to be float!')
             continue
         else:
             return number
@@ -38,14 +41,20 @@ def RGB_input():
         R = int_input('R: ')
         if R >= 0 and R <= 255:
             break
+        else:
+            print('It has to be int between [0;255]!')
     while True:
         G = int_input('G: ')
         if G >= 0 and G <= 255:
             break
+        else:
+            print('It has to be int between [0;255]!')
     while True:
         B = int_input('B: ')
         if B >= 0 and B <= 255:
             break
+        else:
+            print('It has to be int between [0;255]!')
     return (R, G, B)
 
 

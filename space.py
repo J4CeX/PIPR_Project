@@ -97,7 +97,7 @@ class Space:
         index = 1
         for object in self.orbital_objects:
             info += f'Id: {object.id()}\n'
-            info += f'Mass(kg): {object.mass()}\n'
+            info += f'\tMass(kg): {object.mass()}\n'
             info += f'\tPosition(x, y): {object.position()}\n'
             info += f'\tVelocity(x, y): {object.velocity()}\n'
             info += f'\tColor: {object.color}\n'
