@@ -1,6 +1,3 @@
-from random import randrange
-
-
 class Object:
     def __init__(self, mass, positionXY: tuple):
         self._mass = mass
@@ -29,20 +26,14 @@ class CentralObject(Object):
 
 class OrbitalObject(Object):
     def __init__(self, id: int, mass, positionXY,
-                 velocityXY: tuple, color=None):
+                 velocityXY: tuple, color: tuple):
         super().__init__(mass, positionXY)
         self._id = id
         self.vx = velocityXY[0]
         self.vy = velocityXY[1]
         self.x_pixel = None
         self.y_pixel = None
-        if color is None:
-            R = int(randrange(0, 255))
-            G = int(randrange(0, 255))
-            B = int(randrange(0, 255))
-            self.color = (R, G, B)
-        else:
-            self.color = color
+        self.color = color
 
     def id(self):
         return self._id

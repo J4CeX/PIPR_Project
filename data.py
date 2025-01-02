@@ -1,4 +1,5 @@
 from space import Space
+from random import randint
 from objects import (
     OrbitalObject,
     CentralObject
@@ -20,7 +21,7 @@ def int_input(msg=''):
             number = int(number)
             return number
         else:
-            print('It has to be int!')
+            print('It has to be positive int!')
 
 
 def float_input(msg=''):
@@ -29,7 +30,7 @@ def float_input(msg=''):
         try:
             number = float(number)
         except ValueError:
-            print('It has to be float!')
+            print('It has to be positive float!')
             continue
         else:
             return number
@@ -64,7 +65,13 @@ def field_data():
     print('Field size:')
     size = int_input()
     print('Field scale (px:meters): ')
-    scale = 1 / float_input('1px ')
+    while True:
+        meters = float_input('1px ')
+        if meters > 0:
+            scale = 1 / meters
+            break
+        else:
+            print('Value has to be positive!')
     return field_name, size, scale
 
 
@@ -83,13 +90,12 @@ def orbital_objects_data():
     print('Number of objects:')
     quantity = int_input()
     message = 'Central point of the central object is placed on x=0, y=0'
-    print('*' * WIDTH)
-    print('Objects are placed on a Cartesian plane'.center(WIDTH))
-    print(message.center(WIDTH))
-    print('*' * WIDTH)
-    print('Orbital objects')
     for id in range(1, quantity+1):
-        print()
+        print('*' * WIDTH)
+        print('Objects are placed on a Cartesian plane'.center(WIDTH))
+        print(message.center(WIDTH))
+        print('*' * WIDTH)
+        print('Orbital objects')
         print('Object:')
         print(f'Id: {id}')
         print('Mass (kilograms):')
@@ -138,9 +144,14 @@ def orbital_objects_data():
                 color = RGB_input()
                 break
             elif color_option == '8':
+                R = int(randint(125, 255))
+                G = int(randint(125, 255))
+                B = int(randint(125, 255))
+                color = (R, G, B)
                 break
             else:
                 wrong_option()
+        clean()
         orbital_object = OrbitalObject(id, OO_mass, OO_position,
                                        OO_velocity, color)
         orbital_objects.append(orbital_object)
@@ -177,7 +188,7 @@ def load_data(file_handle):
                 object['mass'],
                 tuple(object['position']),
                 tuple(object['velocity']),
-                object['color']
+                tuple(object['color'])
             ))
         collisions = data['collisions']
         return Space(size, scale, central_object,
@@ -238,6 +249,7 @@ def save_data(space: Space):
             elif option == '0':
                 print(f'Saving abandoned {communique}')
                 input()
+                return
             else:
                 wrong_option()
 
@@ -269,6 +281,8 @@ def save_data(space: Space):
             'collisions': collisions
         }
         json.dump(results, file_handle, indent=6)
+        print(f'Saving completed {communique}')
+        input()
 
 
 def edit_data(space: Space):

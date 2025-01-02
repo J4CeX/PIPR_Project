@@ -1,5 +1,8 @@
 from space import Space
-from objects import OrbitalObject, CentralObject
+from objects import (
+    OrbitalObject,
+    CentralObject
+)
 from PIL import Image
 import data
 import os
@@ -74,8 +77,6 @@ def simulation(space):
             input()
         elif after_simulation_option == '3':
             data.save_data(space)
-            print(f'Saving completed {communique}')
-            input()
         elif after_simulation_option == '0':
             break
         else:
@@ -83,12 +84,18 @@ def simulation(space):
 
 
 def load_simulation():
-    files = os.listdir('simulations')
+    try:
+        files = os.listdir('simulations')
+    except FileNotFoundError:
+        clean()
+        print(f'No simulations found {communique}')
+        input()
+        return
     while True:
         clean()
         for index in range(0, len(files)):
             print(f'{index+1}. {files[index]}')
-        print('0. Back to main menu')
+        print('0. Cancel')
         load_file_option = data.int_input()  # problem
         if load_file_option > 0 and load_file_option <= len(files):
             path = f'simulations/{files[load_file_option-1]}'
@@ -97,6 +104,7 @@ def load_simulation():
                 space = data.load_data(file_handle)
             while True:
                 clean()
+                print('Options:')
                 print('1. Show simulation results')
                 print('2. Show simulation graphics')
                 print('3. Start new simulation from the last step')
@@ -111,6 +119,7 @@ def load_simulation():
                 elif load_option == '3':
                     if edit(space):
                         simulation(space)
+                    break
                 elif load_option == '0':
                     break
                 else:
@@ -172,8 +181,8 @@ def sample_simulations():
             ]
             space = Space(600, scale, central_object, orbital_objects, name)
             simulation(space)
-            return
+            break
         elif option == '0':
-            return
+            break
         else:
             wrong_option()
