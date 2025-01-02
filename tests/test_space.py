@@ -37,7 +37,7 @@ def test_Space_simulate():
         OrbitalObject(2, 100, (10, 5), (20, 0))
     ]
     space = Space(200, 200, central_object, orbital_objects, 'test')
-    space.simulate(1)
+    space.simulate(1, 3600 * 24)
 
 
 def test_Space_simulate_Earth_Sun():
@@ -60,7 +60,7 @@ def test_Space_simulate_Earth_Sun():
             (0, velocityY))
     ]
     space = Space(1000, scale, central_object, orbital_objects, name)
-    space.simulate(365)
+    space.simulate(365, 3600 * 24)
     space.show_image()
 
 
@@ -82,7 +82,7 @@ def test_Space_simulate_Earth_Sun_real():
             (0, velocityY))
     ]
     space = Space(24000, scale, central_object, orbital_objects, name)
-    space.simulate(365)
+    space.simulate(365, 3600 * 24)
     space.show_image()
 
 
@@ -103,7 +103,7 @@ def test_Space_simulate_Earth_Moon():
             (0, velocityY))
     ]
     space = Space(600, scale, central_object, orbital_objects, name)
-    space.simulate(365)
+    space.simulate(365, 3600 * 24)
     space.show_image()
 
 
@@ -129,7 +129,7 @@ def test_Space_simulate_collision():
             (0, velocityY)),
     ]
     space = Space(600, scale, central_object, orbital_objects, name)
-    space.simulate(365)
+    space.simulate(365, 3600 * 24)
     assert len(space.collisions) == 365
     space.show_image()
     save_data(space)

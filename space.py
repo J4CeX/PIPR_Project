@@ -49,10 +49,10 @@ class Space:
     def set_scale(self, new_scale):
         self._scale = new_scale
 
-    def simulate(self, steps: int):
+    def simulate(self, steps: int, time: int):
         collisions = []
         G = 6.67430e-11
-        T = 3600 * 24
+        T = time
         M = self.central_object.mass()
         X, Y = self.central_object.position()
         SCALE = self.scale()

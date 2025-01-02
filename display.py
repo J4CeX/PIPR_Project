@@ -27,10 +27,36 @@ def wrong_option():
 
 
 def simulation(space):
-    clean()
-    print('Enter steps (days) number: ')
+    time = None
+    while True:
+        clean()
+        print('Enter time unit for one step: ')
+        print('1. Days')
+        print('2. Hours')
+        print('3. Minutes')
+        print('4. Seconds')
+        print('5. Custom')
+        option = input('>> ')
+        if option == '1':
+            time = 3600 * 24
+            break
+        elif option == '2':
+            time = 3600
+            break
+        elif option == '3':
+            time = 60
+            break
+        elif option == '4':
+            time = 1
+            break
+        elif option == '5':
+            time = data.int_input('seconds ')
+            break
+        else:
+            wrong_option()
+    print('Enter steps number: ')
     steps = data.int_input()
-    space.simulate(steps)
+    space.simulate(steps, time)
     while True:
         clean()
         print('Options:')
