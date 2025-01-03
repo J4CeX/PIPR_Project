@@ -104,7 +104,8 @@ def orbital_objects_data():
         print(f'Id: {id}')
         print('Mass (kilograms):')
         OO_mass = positive_float_input()
-        print('Position (meters, for instance average radius and zero):')
+        msg = '(real distance in meters, for instance average radius and zero)'
+        print(f'Position {msg}:')
         OO_x = float_input('(x) ')
         OO_y = float_input('(y) ')
         OO_position = (OO_x, OO_y)
