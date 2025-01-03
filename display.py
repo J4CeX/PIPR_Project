@@ -177,7 +177,9 @@ def sample_simulations():
                     1,
                     moon_mass,
                     (average_distance, 0),
-                    (0, velocityY))
+                    (0, velocityY),
+                    (255, 255, 255)
+                )
             ]
             space = Space(600, scale, central_object, orbital_objects, name)
             simulation(space)

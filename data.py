@@ -30,10 +30,19 @@ def float_input(msg=''):
         try:
             number = float(number)
         except ValueError:
-            print('It has to be positive float!')
+            print('It has to be float!')
             continue
         else:
             return number
+
+
+def positive_float_input(msg=''):
+    while True:
+        number = float_input(msg)
+        if number > 0:
+            return number
+        else:
+            print('Value has to be positive!')
 
 
 def RGB_input():
@@ -65,22 +74,17 @@ def field_data():
     print('Field size:')
     size = int_input()
     print('Field scale (px:meters): ')
-    while True:
-        meters = float_input('1px ')
-        if meters > 0:
-            scale = 1 / meters
-            break
-        else:
-            print('Value has to be positive!')
+    meters = positive_float_input('1px ')
+    scale = 1 / meters
     return field_name, size, scale
 
 
 def central_object_data():
     print('Central object')
     print('Diameter (meters):')
-    CO_diameter = float_input()
+    CO_diameter = positive_float_input()
     print('Mass (kilograms):')
-    CO_mass = float_input()
+    CO_mass = positive_float_input()
     return CentralObject(CO_mass, CO_diameter)
 
 
@@ -99,7 +103,7 @@ def orbital_objects_data():
         print('Object:')
         print(f'Id: {id}')
         print('Mass (kilograms):')
-        OO_mass = float_input()
+        OO_mass = positive_float_input()
         print('Position (meters, for instance average radius and zero):')
         OO_x = float_input('(x) ')
         OO_y = float_input('(y) ')
