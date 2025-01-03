@@ -285,8 +285,8 @@ def save_data(space: Space):
             'collisions': collisions
         }
         json.dump(results, file_handle, indent=6)
-        print(f'Saving completed {communique}')
-        input()
+    print(f'Saving completed {communique}')
+    input()
 
 
 def edit_data(space: Space):

@@ -62,9 +62,12 @@ class Space:
                 x, y = object.position()
 
                 r = sqrt(x**2 + y**2)
-                a = -G * M / r**2
-                ax = a * (x / r)
-                ay = a * (y / r)
+                try:
+                    a = -G * M / r**2
+                    ax = a * (x / r)
+                    ay = a * (y / r)
+                except ZeroDivisionError:
+                    continue
 
                 object.vx += ax * T
                 object.vy += ay * T
@@ -79,10 +82,12 @@ class Space:
                 self._draw.point(pixel, fill=object.color)
             quantity = len(self.orbital_objects)
             for first in range(quantity):
+                f_pixel = objects[first].pixel()
                 for second in range(first + 1, quantity):
-                    if objects[first].pixel() == objects[second].pixel():
-                        self._draw.point(pixel, fill='yellow')
-                        collisions.append((objects[first].pixel(), step))
+                    s_pixel = objects[second].pixel()
+                    if f_pixel == s_pixel:
+                        self._draw.point(f_pixel, fill=(255, 200, 0))
+                        collisions.append((f_pixel, step))
         self.collisions = collisions
 
     def info(self):
