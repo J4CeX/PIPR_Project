@@ -1,6 +1,10 @@
 from data import (
     load_data,
-    save_data
+    save_data,
+    int_input,
+    float_input,
+    positive_float_input,
+    RGB_input
 )
 from objects import (
     CentralObject,
@@ -40,3 +44,30 @@ def test_load_and_save_data(monkeypatch):
     os.remove(path)
     os.remove(path_img)
     os.rmdir(path_dir)
+
+
+def test_int_input(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda x: '2')
+    value = int_input()
+    assert value == 2
+
+
+def test_float_input(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda x: '2.3')
+    value = float_input()
+    assert value == 2.3
+    monkeypatch.setattr('builtins.input', lambda x: '-2.3')
+    value = float_input()
+    assert value == -2.3
+
+
+def test_positive_float(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda x: '2.3')
+    value = positive_float_input()
+    assert value == 2.3
+
+
+def test_RGB_input(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda x: '125')
+    value = RGB_input()
+    assert value == (125, 125, 125)

@@ -1,6 +1,5 @@
 from space import Space
 from objects import OrbitalObject, CentralObject
-from data import save_data
 
 
 def test_Space_create():
@@ -65,27 +64,28 @@ def test_Space_simulate_Earth_Sun():
     space.show_image()
 
 
-def test_Space_simulate_Earth_Sun_real():
-    # za duży wymiar
-    name = 'Sun_and_Earth_real'
-    scale = 1 / 1.2756e7
-    sun_mass = 1.989e30
-    sun_diameter = 6.9634e8
-    earth_mass = 5.972e24
-    average_distance = 1.496e11
-    velocityY = 29780
-    central_object = CentralObject(sun_mass, sun_diameter)
-    orbital_objects = [
-        OrbitalObject(
-            1,
-            earth_mass,
-            (average_distance, 0),
-            (0, velocityY),
-            (255, 0, 0))
-    ]
-    space = Space(24000, scale, central_object, orbital_objects, name)
-    space.simulate(365, 3600 * 24)
-    space.show_image()
+'''WARNING! RUNNING THIS TEST MAY CRASH THE PROGRAM'''
+# def test_Space_simulate_Earth_Sun_real():
+#     # too big size
+#     name = 'Sun_and_Earth_real'
+#     scale = 1 / 1.2756e7
+#     sun_mass = 1.989e30
+#     sun_diameter = 6.9634e8
+#     earth_mass = 5.972e24
+#     average_distance = 1.496e11
+#     velocityY = 29780
+#     central_object = CentralObject(sun_mass, sun_diameter)
+#     orbital_objects = [
+#         OrbitalObject(
+#             1,
+#             earth_mass,
+#             (average_distance, 0),
+#             (0, velocityY),
+#             (255, 0, 0))
+#     ]
+#     space = Space(24000, scale, central_object, orbital_objects, name)
+#     space.simulate(365, 3600 * 24)
+#     space.show_image()
 
 
 def test_Space_simulate_Earth_Moon():
