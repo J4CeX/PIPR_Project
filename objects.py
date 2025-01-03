@@ -1,5 +1,5 @@
 class Object:
-    def __init__(self, mass, positionXY: tuple):
+    def __init__(self, mass: float, positionXY: tuple):
         self._mass = mass
         self.x = positionXY[0]
         self.y = positionXY[1]
@@ -16,7 +16,7 @@ class Object:
 
 
 class CentralObject(Object):
-    def __init__(self, mass, diameter):
+    def __init__(self, mass: float, diameter: float):
         super().__init__(mass, (0, 0))
         self._diameter = diameter
 
@@ -25,9 +25,11 @@ class CentralObject(Object):
 
 
 class OrbitalObject(Object):
-    def __init__(self, id: int, mass, positionXY,
+    def __init__(self, id: int, mass: float, positionXY: tuple,
                  velocityXY: tuple, color: tuple):
         super().__init__(mass, positionXY)
+        if id < 0:
+            raise ValueError('Id cannot be negative')
         self._id = id
         self.vx = velocityXY[0]
         self.vy = velocityXY[1]
