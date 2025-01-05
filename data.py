@@ -15,6 +15,9 @@ import os
 
 
 def int_input(msg=''):
+    """
+    Takes input data that must be positive integer.
+    """
     while True:
         number = input(f'{msg}>> ')
         if number.isdigit():
@@ -25,6 +28,9 @@ def int_input(msg=''):
 
 
 def float_input(msg=''):
+    """
+    Takes input data that must be float.
+    """
     while True:
         number = input(f'{msg}>> ')
         try:
@@ -37,6 +43,9 @@ def float_input(msg=''):
 
 
 def positive_float_input(msg=''):
+    """
+    Takes input data that must be positive float.
+    """
     while True:
         number = float_input(msg)
         if number > 0:
@@ -46,6 +55,10 @@ def positive_float_input(msg=''):
 
 
 def RGB_input():
+    """
+    Takes input data, that must be integers between 0 and 255,
+    and converts it to a 3-element tuple of RGB values.
+    """
     print('[0;255]')
     while True:
         R = int_input('R: ')
@@ -69,6 +82,9 @@ def RGB_input():
 
 
 def field_data():
+    """
+    Collects data about space field.
+    """
     print('Field name:')
     field_name = str(input('>> '))
     print('Field size:')
@@ -80,6 +96,9 @@ def field_data():
 
 
 def central_object_data():
+    """
+    Collects data about central object.
+    """
     print('Central object')
     print('Diameter (meters):')
     CO_diameter = positive_float_input()
@@ -88,7 +107,10 @@ def central_object_data():
     return CentralObject(CO_mass, CO_diameter)
 
 
-def orbital_objects_data():
+def orbital_objects_data(CO_mass):
+    """
+    Collects data about orbital objects.
+    """
     orbital_objects = []
     print('Orbital objects')
     print('Number of objects:')
@@ -103,7 +125,12 @@ def orbital_objects_data():
         print('Object:')
         print(f'Id: {id}')
         print('Mass (kilograms):')
-        OO_mass = positive_float_input()
+        while True:
+            OO_mass = positive_float_input()
+            if OO_mass >= CO_mass:
+                print("Orbital object's mass cannot be bigger than Central's")
+            else:
+                break
         msg = '(real distance in meters, for instance average radius and zero)'
         print(f'Position {msg}:')
         OO_x = float_input('(x) ')
@@ -164,17 +191,23 @@ def orbital_objects_data():
 
 
 def new_data():
+    """
+    Collects data and generate new Space object.
+    """
     clean()
     field_name, size, scale = field_data()
     clean()
     central_object = central_object_data()
     clean()
-    orbital_objects = orbital_objects_data()
+    orbital_objects = orbital_objects_data(central_object.mass())
     clean()
     return Space(size, scale, central_object, orbital_objects, field_name)
 
 
 def load_data(file_handle):
+    """
+    Loads previously saved data and enters it into the program.
+    """
     data = json.load(file_handle)
     try:
         name = data['name']
@@ -205,6 +238,9 @@ def load_data(file_handle):
 
 
 def save_data(space: Space):
+    """
+    Saves data about the simulation performed into json file.
+    """
     name = space.name()
     directory = f'{name}'
     parent_dir = 'simulations'
@@ -216,6 +252,7 @@ def save_data(space: Space):
     if not os.path.isdir(path_directory):
         os.mkdir(path_directory)
     else:
+        """Handling with existing files"""
         while True:
             clean()
             print('Simulation of space with such name already exist.')
@@ -291,6 +328,9 @@ def save_data(space: Space):
 
 
 def edit_data(space: Space):
+    """
+    Allows editing of loaded simulation data.
+    """
     def header():
         print('Data editing'.center(WIDTH))
         print('-' * WIDTH)
@@ -316,7 +356,8 @@ def edit_data(space: Space):
             space.central_object = central_object_data()
             break
         elif option == '3':
-            space.orbital_objects = orbital_objects_data()
+            CO_mass = space.central_object.mass()
+            space.orbital_objects = orbital_objects_data(CO_mass)
             break
         elif option == '0':
             clean()

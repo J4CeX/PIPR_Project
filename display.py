@@ -30,6 +30,10 @@ def wrong_option():
 
 
 def simulation(space):
+    """
+    Prints simulation interface.
+    Takes the simulation time period and runs the simulation.
+    """
     time = None
     while True:
         clean()
@@ -84,6 +88,9 @@ def simulation(space):
 
 
 def load_simulation():
+    """
+    Prints load simulation interface.
+    """
     try:
         files = os.listdir('simulations')
     except FileNotFoundError:

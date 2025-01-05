@@ -10,9 +10,41 @@ from math import sqrt
 
 
 class Space:
-    def __init__(self, size: int, scale: int, central_object: CentralObject,
+    """
+    Class Space, Contains attributes:
+    :param name: Space's name
+    :type name: str
+
+    :param size: Space's simulation image size
+    :type size: positive integer
+
+    :param scale: Space's simulation image scale
+    :type scale: positive float
+
+    :param central_object: Space's central object
+    :type central_object: class CentralObject
+
+    :param orbital_objects: Space's objects orbiting a central object
+    :type orbital_objects: class OrbitalObject
+
+    :param image: Space's class to generate simulation image
+    :type image: class Image
+
+    :param draw: Space's class to modify simulation image
+    :type draw: class ImageDraw
+
+    :param collisions: List of Space's collisions, location and time
+    they occurred during the simulation
+    :type collisions: list of tuple of scaled x and y (position) and integer
+    """
+    def __init__(self, size: int, scale: float, central_object: CentralObject,
                  orbital_objects: OrbitalObject = [],
                  name='unknown', collisions=[]):
+        """
+        Creates Space and create for it image of space with central object only
+        basing on central object's diameter and scale of space image
+        Gives class Space ability to change it image during simulation steps
+        """
         space_image = Image.new('RGB', (size, size), (0, 0, 0))
         draw = ImageDraw.Draw(space_image)
         radius = (central_object.diameter() / 2) * scale
@@ -50,9 +82,23 @@ class Space:
         self._scale = new_scale
 
     def simulate(self, steps: int, time: int):
+        """
+        This Space's method simulate simulation of motion in a gravitational
+        field basing on Space attributes data and given unit of time and its
+        amount. Simulation places orbital object in position x=0 y=0 on
+        a Cartesian plane and orbital objects on real position (real distance
+        from central object). It calculate next position of orbital objects
+        basing on their gravity acceleration vector (ax, ay), their velocity
+        vector (vx, vy), their distance from central object, their previous
+        position and central object's mass. After calculations it places all
+        objects on generating image using scale and central object's position
+        moved to center of the image (image size divided by 2) and convert
+        result to integer to be able to place it in certain pixel. After
+        simulation of one step, it checks if any collisions has occured.
+        """
         collisions = []
-        G = 6.67430e-11
-        T = time
+        G = 6.67430e-11  # Gravitational constant
+        T = time  # Unit of time
         M = self.central_object.mass()
         X, Y = self.central_object.position()
         SCALE = self.scale()
@@ -61,25 +107,26 @@ class Space:
             for object in objects:
                 x, y = object.position()
 
-                r = sqrt(x**2 + y**2)
+                r = sqrt(x**2 + y**2)  # Distance from central to orbital obj.
                 try:
-                    a = -G * M / r**2
-                    ax = a * (x / r)
-                    ay = a * (y / r)
+                    a = -G * M / r**2  # Gravity acceleration
+                    ax = a * (x / r)  # Grav. acc. vector horizontal component
+                    ay = a * (y / r)  # Grav. acc. vector vertical component
                 except ZeroDivisionError:
                     continue
-
-                object.vx += ax * T
-                object.vy += ay * T
-                x += object.vx * T
-                y += object.vy * T
+                # Orbital object's next step values
+                object.vx += ax * T  # Orbital obj. next vector hor. cmpt.
+                object.vy += ay * T  # Orbital obj. next vector ver. cmpt.
+                x += object.vx * T  # Orbital obj. next x position
+                y += object.vy * T  # Orbital obj. next y position
                 object.set_position((x, y))
-
+                # Convert real positon to scaled for image
                 x_pixel = int(X + x * SCALE)
                 y_pixel = int(Y + y * SCALE)
                 pixel = (x_pixel, y_pixel)
                 object.set_pixel(pixel)
                 self._draw.point(pixel, fill=object.color)
+            # Searching for collisions in step
             quantity = len(self.orbital_objects)
             for first in range(quantity):
                 f_pixel = objects[first].pixel()
@@ -91,6 +138,10 @@ class Space:
         self.collisions = collisions
 
     def info(self):
+        """
+        Method return informations about Space's attributes,
+        last step of the simulation and collisions as string
+        """
         info = ''
         info += f'Space name: {self._name}\n'
         info += f'Space size(px): {self._size}\n'
