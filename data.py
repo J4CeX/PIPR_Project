@@ -107,7 +107,7 @@ def central_object_data():
     return CentralObject(CO_mass, CO_diameter)
 
 
-def orbital_objects_data():
+def orbital_objects_data(CO_mass):
     """
     Collects data about orbital objects.
     """
@@ -125,7 +125,12 @@ def orbital_objects_data():
         print('Object:')
         print(f'Id: {id}')
         print('Mass (kilograms):')
-        OO_mass = positive_float_input()
+        while True:
+            OO_mass = positive_float_input()
+            if OO_mass >= CO_mass:
+                print("Orbital object's mass cannot be bigger than Central's")
+            else:
+                break
         msg = '(real distance in meters, for instance average radius and zero)'
         print(f'Position {msg}:')
         OO_x = float_input('(x) ')
@@ -194,7 +199,7 @@ def new_data():
     clean()
     central_object = central_object_data()
     clean()
-    orbital_objects = orbital_objects_data()
+    orbital_objects = orbital_objects_data(central_object.mass())
     clean()
     return Space(size, scale, central_object, orbital_objects, field_name)
 
@@ -351,7 +356,8 @@ def edit_data(space: Space):
             space.central_object = central_object_data()
             break
         elif option == '3':
-            space.orbital_objects = orbital_objects_data()
+            CO_mass = space.central_object.mass()
+            space.orbital_objects = orbital_objects_data(CO_mass)
             break
         elif option == '0':
             clean()
