@@ -1,4 +1,12 @@
 class Object:
+    """
+    Class Object, Contains attributes:
+    :param mass: object's mass
+    :type mass: positive float
+
+    :param x and y: object's position
+    :type x and y: float tuple
+    """
     def __init__(self, mass: float, positionXY: tuple):
         self._mass = mass
         self.x = positionXY[0]
@@ -16,6 +24,18 @@ class Object:
 
 
 class CentralObject(Object):
+    """
+    Class CentralObject, inherits from class Object
+    Contains attributes:
+    :param mass: central object's mass
+    :type mass: positive float
+
+    :param x and y: central object's position
+    :type x and y: tuple of floats
+
+    :param diameter: central object's diameter
+    :type diameter: positive float
+    """
     def __init__(self, mass: float, diameter: float):
         super().__init__(mass, (0, 0))
         self._diameter = diameter
@@ -25,6 +45,27 @@ class CentralObject(Object):
 
 
 class OrbitalObject(Object):
+    """
+    Class OrbitalObject, inherits from class Object
+    Contains attributes:
+    :param id: orbital object's id
+    :type id: positive integer
+
+    :param mass: orbital object's mass
+    :type mass: float
+
+    :param x and y: orbital object's position
+    :type x and y: tuple of floats
+
+    :param vx and vy: orbital object's velocity vector values
+    :type vx and xy: float
+
+    :param x_pixel and y_pixel: orbital object's position in simulation image
+    :type x_pixel and y_pixel: int
+
+    :param color: orbital object's color in simulation image
+    :type color: tuple of integers in the range 0 to 255
+    """
     def __init__(self, id: int, mass: float, positionXY: tuple,
                  velocityXY: tuple, color: tuple):
         super().__init__(mass, positionXY)
