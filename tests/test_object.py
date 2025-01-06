@@ -32,6 +32,21 @@ def test_Object_create_not_positive_mass():
         Object(0.0, (20.0, 20.0))
 
 
+def test_Object_set_positon():
+    object = Object(200.0, (20.0, 20.0))
+    assert object.position() == (20.0, 20.0)
+    object.set_position((10.0, 10.0))
+    assert object.position() == (10.0, 10.0)
+
+
+def test_Object_set_positon_wrong_type():
+    object = Object(200.0, (20.0, 20.0))
+    with pytest.raises(ValueIsNotFloatError):
+        object.set_position((20, 20.42))
+    with pytest.raises(ValueIsNotFloatError):
+        object.set_position((20.24, 20))
+
+
 def test_Central_Object_create():
     object = CentralObject(2000.0, 200.0)
     assert object.mass() == 2000.0
@@ -148,3 +163,14 @@ def test_Orbital_Object_set_pixel():
     assert object.pixel() == (None, None)
     object.set_pixel((3, 3))
     assert object.pixel() == (3, 3)
+
+
+def test_Orbital_Object_set_pixel_wrong_type():
+    object = OrbitalObject(
+        1, 200.0, (2.0, 3.0),
+        (20.0, 0.0), (255, 0, 0)
+    )
+    with pytest.raises(ValueIsNotIntegerError):
+        object.set_pixel((20.2, 20))
+    with pytest.raises(ValueIsNotIntegerError):
+        object.set_pixel((20, 20.3))

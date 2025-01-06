@@ -90,6 +90,132 @@ def test_Space_set_name():
     assert space.name() == 'change'
 
 
+def test_Space_set_name_wrong_type():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    space = Space(500, 200.0, central_object, orbital_objects)
+    assert space.name() == 'unknown'
+    with pytest.raises(ValueIsNotStrError):
+        space.set_name(1)
+
+
+def test_Space_set_size():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    space = Space(500, 200.0, central_object, orbital_objects)
+    assert space.size() == 500
+    space.set_size(300)
+    assert space.size() == 300
+
+
+def test_Space_set_size_wrong_type():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    space = Space(500, 200.0, central_object, orbital_objects)
+    assert space.size() == 500
+    with pytest.raises(ValueIsNotIntegerError):
+        space.set_size(200.56)
+
+
+def test_Space_set_size_not_positive():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    space = Space(500, 200.0, central_object, orbital_objects)
+    assert space.size() == 500
+    with pytest.raises(ValueIsNotPositiveError):
+        space.set_size(-200)
+
+
+def test_Space_set_scale():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    space = Space(500, 200.0, central_object, orbital_objects)
+    assert space.scale() == 200
+    space.set_scale(300.0)
+    assert space.scale() == 300
+
+
+def test_Space_set_scale_wrong_type():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    space = Space(500, 200.0, central_object, orbital_objects)
+    assert space.scale() == 200
+    with pytest.raises(ValueIsNotFloatError):
+        space.set_scale('100')
+
+
+def test_Space_set_scale_not_positive():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    space = Space(500, 200.0, central_object, orbital_objects)
+    assert space.scale() == 200
+    with pytest.raises(ValueIsNotPositiveError):
+        space.set_scale(-200.56)
+
+
 def test_Space_simulate():
     central_object = CentralObject(2000.0, 100.0)
     orbital_objects = [
