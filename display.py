@@ -178,14 +178,14 @@ def sample_simulations():
             earth_diameter = 1.2756e7
             moon_mass = 7.34e22
             average_distance = 3.84399e8
-            velocityY = 1023
+            velocityY = 1023.0
             central_object = CentralObject(earth_mass, earth_diameter)
             orbital_objects = [
                 OrbitalObject(
                     1,
                     moon_mass,
-                    (average_distance, 0),
-                    (0, velocityY),
+                    (average_distance, 0.0),
+                    (0.0, velocityY),
                     (255, 255, 255)
                 )
             ]

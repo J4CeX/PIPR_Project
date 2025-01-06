@@ -47,7 +47,7 @@ def test_Space_create_wrong_types():
     with pytest.raises(ValueIsNotIntegerError):
         Space(500.2, 200.0, central_object, orbital_objects)
     with pytest.raises(ValueIsNotFloatError):
-        Space(500, 200, central_object, orbital_objects, 1)
+        Space(500, 200, central_object, orbital_objects)
 
 
 def test_Space_create_not_positive_values():
@@ -84,7 +84,7 @@ def test_Space_set_name():
             (20.0, 0.0), (255, 0, 0)
         )
     ]
-    space = Space(500, 200, central_object, orbital_objects)
+    space = Space(500, 200.0, central_object, orbital_objects)
     assert space.name() == 'unknown'
     space.set_name('change')
     assert space.name() == 'change'
@@ -102,7 +102,7 @@ def test_Space_simulate():
             (20.0, 0.0), (255, 0, 0)
         )
     ]
-    space = Space(200, 200, central_object, orbital_objects, 'test')
+    space = Space(200, 200.0, central_object, orbital_objects, 'test')
     space.simulate(1, 3600 * 24)
 
 

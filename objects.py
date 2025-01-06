@@ -36,6 +36,10 @@ class Object:
         return (self.x, self.y)
 
     def set_position(self, xy: tuple):
+        if type(xy[0]) is not float:
+            raise ValueIsNotFloatError(xy[0])
+        if type(xy[1]) is not float:
+            raise ValueIsNotFloatError(xy[1])
         self.x = xy[0]
         self.y = xy[1]
 
@@ -129,5 +133,9 @@ class OrbitalObject(Object):
         return (self.x_pixel, self.y_pixel)
 
     def set_pixel(self, new_pixel: tuple):
+        if type(new_pixel[0]) is not int:
+            raise ValueIsNotIntegerError(new_pixel[0])
+        if type(new_pixel[1]) is not int:
+            raise ValueIsNotIntegerError(new_pixel[1])
         self.x_pixel = new_pixel[0]
         self.y_pixel = new_pixel[1]

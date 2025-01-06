@@ -27,7 +27,8 @@ def test_load_and_save_data(monkeypatch):
             (20.0, 0.0), (255, 0, 0)
         )
     ]
-    space = Space(200, 200, central_object, orbital_objects, 'test_save_load')
+    space = Space(200, 200.0, central_object,
+                  orbital_objects, 'test_save_load')
     save_data(space)
     path = 'simulations/test_save_load/test_save_load.json'
     path_img = 'simulations/test_save_load/test_save_load.png'

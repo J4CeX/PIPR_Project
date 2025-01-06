@@ -90,12 +90,22 @@ class Space:
         return self._name
 
     def set_name(self, new_name):
+        if type(new_name) is not str:
+            raise ValueIsNotStrError(new_name)
         self._name = new_name
 
     def set_size(self, new_size):
+        if type(new_size) is not int:
+            raise ValueIsNotIntegerError(new_size)
+        if new_size <= 0:
+            raise ValueIsNotPositiveError(new_size)
         self._size = new_size
 
     def set_scale(self, new_scale):
+        if type(new_scale) is not float:
+            raise ValueIsNotFloatError(new_scale)
+        if new_scale <= 0:
+            raise ValueIsNotPositiveError(new_scale)
         self._scale = new_scale
 
     def simulate(self, steps: int, time: int):
@@ -136,7 +146,7 @@ class Space:
                 object.vy += ay * T  # Orbital obj. next vector ver. cmpt.
                 x += object.vx * T  # Orbital obj. next x position
                 y += object.vy * T  # Orbital obj. next y position
-                object.set_position((x, y))
+                object.set_position((float(x), float(y)))
                 # Convert real positon to scaled for image
                 x_pixel = int(X + x * SCALE)
                 y_pixel = int(Y + y * SCALE)
