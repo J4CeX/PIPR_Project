@@ -1,5 +1,12 @@
-from space import Space
+from space import (
+    Space,
+    ValueIsNotStrError,
+    ValueIsNotFloatError,
+    ValueIsNotIntegerError,
+    ValueIsNotPositiveError
+)
 from objects import OrbitalObject, CentralObject
+import pytest
 
 
 def test_Space_create():
@@ -14,13 +21,55 @@ def test_Space_create():
             (20.0, 0.0), (255, 0, 0)
         )
     ]
-    space = Space(500, 200, central_object, orbital_objects)
+    space = Space(500, 200.0, central_object, orbital_objects)
     assert space.size() == 500
     assert space.scale() == 200
     assert space.central_object.diameter() == 100
     assert space.central_object.mass() == 2000
     assert space.orbital_objects[0].mass() == 200
     assert space.orbital_objects[1].mass() == 100
+
+
+def test_Space_create_wrong_types():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    with pytest.raises(ValueIsNotStrError):
+        Space(500, 200.0, central_object, orbital_objects, 1)
+    with pytest.raises(ValueIsNotIntegerError):
+        Space(500.2, 200.0, central_object, orbital_objects)
+    with pytest.raises(ValueIsNotFloatError):
+        Space(500, 200, central_object, orbital_objects, 1)
+
+
+def test_Space_create_not_positive_values():
+    central_object = CentralObject(2000.0, 100.0)
+    orbital_objects = [
+        OrbitalObject(
+            1, 200.0, (2.0, 2.0),
+            (20.0, 0.0), (255, 0, 0)
+        ),
+        OrbitalObject(
+            2, 100.0, (10.0, 5.0),
+            (20.0, 0.0), (255, 0, 0)
+        )
+    ]
+    with pytest.raises(ValueIsNotPositiveError):
+        Space(-1, 200.0, central_object, orbital_objects)
+    with pytest.raises(ValueIsNotPositiveError):
+        Space(0, 200.0, central_object, orbital_objects)
+    with pytest.raises(ValueIsNotPositiveError):
+        Space(500, -1.0, central_object, orbital_objects)
+    with pytest.raises(ValueIsNotPositiveError):
+        Space(500, 0.0, central_object, orbital_objects)
 
 
 def test_Space_set_name():

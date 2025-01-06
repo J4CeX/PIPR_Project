@@ -20,3 +20,9 @@ class RGBValueError(Exception):
     def __init__(self, value):
         msg = f'Value has to be int between [0;255] ({value})'
         super().__init__(msg)
+
+
+class ValueIsNotStrError(Exception):
+    def __init__(self, value):
+        msg = f'Value has to be str ({value})'
+        super().__init__(msg)

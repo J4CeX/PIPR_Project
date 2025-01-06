@@ -1,14 +1,16 @@
 from objects import (
     OrbitalObject,
     CentralObject,
-    # ValueIsNotFloatError,
-    # ValueIsNotIntegerError,
-    # ValueIsNotPositiveError,
-    # RGBValueError
 )
 from PIL import (
     Image,
     ImageDraw
+)
+from errors import (
+    ValueIsNotStrError,
+    ValueIsNotFloatError,
+    ValueIsNotIntegerError,
+    ValueIsNotPositiveError
 )
 from math import sqrt
 
@@ -49,6 +51,17 @@ class Space:
         basing on central object's diameter and scale of space image
         Gives class Space ability to change it image during simulation steps
         """
+        if type(name) is not str:
+            raise ValueIsNotStrError(name)
+        if type(size) is not int:
+            raise ValueIsNotIntegerError(size)
+        if size <= 0:
+            raise ValueIsNotPositiveError(size)
+        if type(scale) is not float:
+            raise ValueIsNotFloatError(scale)
+        if scale <= 0:
+            raise ValueIsNotPositiveError(scale)
+
         space_image = Image.new('RGB', (size, size), (0, 0, 0))
         draw = ImageDraw.Draw(space_image)
         radius = (central_object.diameter() / 2) * scale
