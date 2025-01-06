@@ -1,3 +1,11 @@
+from errors import (
+    ValueIsNotFloatError,
+    ValueIsNotIntegerError,
+    ValueIsNotPositiveError,
+    RGBValueError
+)
+
+
 class Object:
     """
     Class Object, Contains attributes:
@@ -8,6 +16,15 @@ class Object:
     :type x and y: float tuple
     """
     def __init__(self, mass: float, positionXY: tuple):
+        if type(mass) is not float:
+            raise ValueIsNotFloatError(mass)
+        if mass <= 0:
+            raise ValueIsNotPositiveError(mass)
+        if type(positionXY[0]) is not float:
+            raise ValueIsNotFloatError(positionXY[0])
+        if type(positionXY[1]) is not float:
+            raise ValueIsNotFloatError(positionXY[1])
+
         self._mass = mass
         self.x = positionXY[0]
         self.y = positionXY[1]
@@ -37,7 +54,12 @@ class CentralObject(Object):
     :type diameter: positive float
     """
     def __init__(self, mass: float, diameter: float):
-        super().__init__(mass, (0, 0))
+        super().__init__(mass, (0.0, 0.0))
+        if type(diameter) is not float:
+            raise ValueIsNotFloatError(diameter)
+        if diameter <= 0:
+            raise ValueIsNotPositiveError(diameter)
+
         self._diameter = diameter
 
     def diameter(self):
@@ -69,8 +91,27 @@ class OrbitalObject(Object):
     def __init__(self, id: int, mass: float, positionXY: tuple,
                  velocityXY: tuple, color: tuple):
         super().__init__(mass, positionXY)
-        if id < 0:
-            raise ValueError('Id cannot be negative')
+        if type(id) is not int:
+            raise ValueIsNotIntegerError(id)
+        if id <= 0:
+            raise ValueIsNotPositiveError(id)
+        if type(velocityXY[0]) is not float:
+            raise ValueIsNotFloatError(velocityXY[0])
+        if type(velocityXY[1]) is not float:
+            raise ValueIsNotFloatError(velocityXY[1])
+        if type(color[0]) is not int:
+            raise ValueIsNotIntegerError(color[0])
+        if type(color[1]) is not int:
+            raise ValueIsNotIntegerError(color[1])
+        if type(color[2]) is not int:
+            raise ValueIsNotIntegerError(color[2])
+        if color[0] < 0 or color[0] > 255:
+            raise RGBValueError(color[0])
+        if color[1] < 0 or color[1] > 255:
+            raise RGBValueError(color[1])
+        if color[2] < 0 or color[2] > 255:
+            raise RGBValueError(color[2])
+
         self._id = id
         self.vx = velocityXY[0]
         self.vy = velocityXY[1]

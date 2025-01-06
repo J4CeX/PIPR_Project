@@ -1,6 +1,10 @@
 from objects import (
     OrbitalObject,
-    CentralObject
+    CentralObject,
+    # ValueIsNotFloatError,
+    # ValueIsNotIntegerError,
+    # ValueIsNotPositiveError,
+    # RGBValueError
 )
 from PIL import (
     Image,

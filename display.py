@@ -4,6 +4,7 @@ from objects import (
     CentralObject
 )
 from PIL import Image
+from inputs import int_input
 import data
 import os
 
@@ -57,12 +58,12 @@ def simulation(space):
             time = 1
             break
         elif option == '5':
-            time = data.int_input('seconds ')
+            time = int_input('seconds ')
             break
         else:
             wrong_option()
     print('Enter steps number: ')
-    steps = data.int_input()
+    steps = int_input()
     space.simulate(steps, time)
     while True:
         clean()
@@ -103,7 +104,7 @@ def load_simulation():
         for index in range(0, len(files)):
             print(f'{index+1}. {files[index]}')
         print('0. Cancel')
-        load_file_option = data.int_input()  # problem
+        load_file_option = int_input()  # problem
         if load_file_option > 0 and load_file_option <= len(files):
             path = f'simulations/{files[load_file_option-1]}'
             results_file = f'/{files[load_file_option-1]}.json'
