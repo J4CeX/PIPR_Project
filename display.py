@@ -169,6 +169,7 @@ def sample_simulations():
         clean()
         print('Sample simulations:')
         print('1. Earth and Moon ')
+        print('2. Jupiter and its moons')
         print('0. Cancel')
         option = input('>> ')
         if option == '1':
@@ -190,6 +191,57 @@ def sample_simulations():
                 )
             ]
             space = Space(600, scale, central_object, orbital_objects, name)
+            simulation(space)
+            break
+        elif option == '2':
+            name = 'Jupiter and its moons'
+            scale = 1 / 4.2133e6
+            jupiter_mass = 1.898e27
+            jupiter_diameter = 1.3982e8
+            Io_mass = 8.93e22
+            Io_distance = (4.217e8, 0.0)
+            Io_velocity = (0.0, 1.73e4)
+            Europa_mass = 4.8e22
+            Europa_distance = (6.709e8, 0.0)
+            Europa_velocity = (0.0, 1.37e4)
+            Ganimedes_mass = 1.48e23
+            Ganimedes_distance = (1.0704e9, 0.0)
+            Ganimedes_velocity = (0.0, 1.09e4)
+            Kallisto_mass = 1.08e23
+            Kallisto_distance = (1.8827e9, 0.0)
+            Kallisto_velocity = (0.0, 8.2e3)
+            central_object = CentralObject(jupiter_mass, jupiter_diameter)
+            orbital_objects = [
+                OrbitalObject(
+                    1,
+                    Io_mass,
+                    (Io_distance),
+                    (Io_velocity),
+                    (255, 0, 0)
+                ),
+                OrbitalObject(
+                    2,
+                    Europa_mass,
+                    (Europa_distance),
+                    (Europa_velocity),
+                    (0, 255, 0)
+                ),
+                OrbitalObject(
+                    3,
+                    Ganimedes_mass,
+                    (Ganimedes_distance),
+                    (Ganimedes_velocity),
+                    (0, 0, 255)
+                ),
+                OrbitalObject(
+                    4,
+                    Kallisto_mass,
+                    (Kallisto_distance),
+                    (Kallisto_velocity),
+                    (255, 255, 255)
+                )
+            ]
+            space = Space(1000, scale, central_object, orbital_objects, name)
             simulation(space)
             break
         elif option == '0':
