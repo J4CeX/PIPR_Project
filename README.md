@@ -1,5 +1,5 @@
 > ## Create a program that, for a given configuration, draws the result of a simulation of motion in a gravitational field.
-> Name and surname: Jacek Kozakowski
+> Name and surname: Jacek Kozakowski<br>
 > Album number: 337248
 
 > The purpose of this project is to be able to simulate and track the movement of objects orbiting around a central object, e.g. the Moon's orbit around the Earth, and save the results to a file that can be loaded later and based on the data contained therein, continue to simulate the movement in orbit starting from the last step of the previous simulation period. The loaded data can also be edited from the program level before the next simulation.
